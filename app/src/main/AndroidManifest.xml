@@ -24,6 +24,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home_student" />
         </activity>
+        <activity android:name=".add_question"
+            android:parentActivityName=".home_student">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home_student" />
+        </activity>
     </application>
 
 </manifest>
