@@ -24,8 +24,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class AddStudentRequest  {
-    String url = "http://192.168.1.12/elearning/public/api/add-student";
+public class AddStudentRequest extends com.example.pa.Request.Request {
+
+    String url = "http://"+getIp()+"/elearning/public/api/add-student";
     JSONObject studentData;
     Context context;
     RequestQueue requestQueue;
@@ -33,6 +34,8 @@ public class AddStudentRequest  {
     public AddStudentRequest(Context context){
         this.context = context;
         studentData = new JSONObject();
+        String TAG = "nambah";
+        Log.d(TAG,url);
     }
     public Student start(Student student){
         try {
@@ -40,6 +43,8 @@ public class AddStudentRequest  {
             studentData.put("email",student.getEmail());
             studentData.put("password",student.getPassword());
             studentData.put("role",student.getRole());
+            String TAG = "nambah";
+            Log.d(TAG,student.getNama());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,8 +54,9 @@ public class AddStudentRequest  {
 
                     @Override
                     public void onResponse(JSONObject response) {
+
                         String TAG = "nambah";
-                        Log.d(TAG,"bisa nambah yeay");
+                        Log.d(TAG,response.toString());
                     }
                 }, new Response.ErrorListener() {
 

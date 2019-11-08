@@ -26,6 +26,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_student);
         btnCreateStudent = findViewById(R.id.create_student);
+        student = new Student();
         tv_name = findViewById(R.id.name_student);
         tv_email = findViewById(R.id.email_student);
         tv_password = findViewById(R.id.password_student);
@@ -40,6 +41,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
             student.setNama(tv_name.getText().toString().trim());
             student.setEmail(tv_email.getText().toString().trim());
             student.setPassword(tv_password.getText().toString().trim());
+            student.setRole("student");
             new AddStudentAsync().execute();
         }
     }
@@ -51,7 +53,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
 
         @Override
         protected Student doInBackground(Void... voids) {
-            return ASR.start();
+            return ASR.start(student);
         }
 
         @Override

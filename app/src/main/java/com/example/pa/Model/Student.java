@@ -8,6 +8,10 @@ public class Student implements Parcelable {
     private String email;
     private String role;
 
+    public Student() {
+
+    }
+
     public String getRole() {
         return role;
     }
@@ -26,7 +30,7 @@ public class Student implements Parcelable {
 
     private String nama;
 
-    protected Student(Parcel in) {
+    public Student(Parcel in) {
         id = in.readInt();
         email = in.readString();
         password = in.readString();
