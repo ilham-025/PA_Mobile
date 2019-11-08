@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PA</string>
+    <string name="app_name">E-Learning</string>
     <string name="e_mail">E-Mail</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
@@ -8,8 +8,21 @@
     <string name="student">Student</string>
     <string name="question">Question</string>
     <string name="profile">Profil</string>
-    <string name="anounce">Pengumuman!!!</string>
+    <string name="announce">Pengumuman!!!</string>
     <string name="nama">Nama</string>
     <string name="tambah_siswa">Tambah Siswa</string>
+<<<<<<< HEAD
     <string name="username">username</string>
+=======
+    <string name="read_more">read more...</string>
+    <string name="date">tanggal</string>
+    <string name="tambah">Tambah</string>
+    <string name="tambah_soal">Tambah Soal</string>
+    <string name="judul">Judul</string>
+    <string name="mulai">Mulai</string>
+    <string name="selesai">Selesai</string>
+    <string name="soal">Soal</string>
+    <string name="buat_soal">Buat Soal</string>
+    <string name="buat">Buat</string>
+>>>>>>> bd8e23a77b912f85e9d443a55da47728dc1dd37b
 </resources>

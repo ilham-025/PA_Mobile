@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home_student"></activity>
-        <activity android:name=".home_lecturer" />
+        <activity android:name=".home_student"/>
+        <activity android:name=".home_lecturer"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".add_student"
-            android:parentActivityName=".home_student">
+            android:parentActivityName=".home_lecturer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home_student" />
+                android:value=".home_lecturer" />
+        </activity>
+        <activity android:name=".add_question"
+            android:parentActivityName=".home_lecturer">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home_lecturer" />
         </activity>
 
     </application>
