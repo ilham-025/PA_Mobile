@@ -33,31 +33,47 @@
             android:layout_height="wrap_content"
             android:text="@string/judul"/>
         <EditText
-            android:id="@+id/name_student"
+            android:id="@+id/judul_soal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:layout_marginBottom="16dp"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mulai"/>
-        <EditText
-            android:id="@+id/start_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:layout_marginBottom="16dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/selesai"/>
-        <EditText
-            android:id="@+id/finish_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mulai"/>
+                <EditText
+                    android:id="@+id/start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:layout_marginBottom="16dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selesai"/>
+                <EditText
+                    android:id="@+id/finish_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:layout_marginBottom="16dp"/>
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,15 +90,18 @@
                 android:background="@drawable/button_background"
                 android:src="@drawable/ic_add_black_24dp"/>
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="380dp">
             <LinearLayout
                 android:id="@+id/ly_soal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="60dp"></LinearLayout>
+                android:paddingBottom="380dp">
+
+            </LinearLayout>
         </ScrollView>
         <Button
             android:id="@+id/create_question"

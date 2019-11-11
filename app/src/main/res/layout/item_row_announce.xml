@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="5dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_item_photo_lecturer"
                     android:layout_width="50dp"
@@ -48,6 +48,12 @@
                         android:textSize="10dp"/>
                 </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="5dp"/>
             <TextView
                 android:id="@+id/announce"
                 android:layout_width="match_parent"
