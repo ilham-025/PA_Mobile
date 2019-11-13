@@ -21,4 +21,11 @@
     <string name="soal">Soal</string>
     <string name="buat_soal">Buat Soal</string>
     <string name="buat">Buat</string>
+    <string name="tv_soal">Soal : </string>
+    <string name="tempo_pengerjaan">Tempo Pengerjaan : </string>
+    <string name="kerjakan">Kerjakan</string>
+    <string name="jumlah_soal">Jumlah Soal :</string>
+    <string name="start">Start</string>
+    <string name="jam">Jam</string>
+    <string name="tanggal">Tanggal</string>
 </resources>

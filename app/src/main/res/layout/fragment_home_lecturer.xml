@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@android:color/white">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_item_photo_home"
             android:layout_width="80dp"
