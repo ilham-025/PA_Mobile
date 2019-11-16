@@ -87,7 +87,7 @@ public class add_question extends AppCompatActivity {
 
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        jamselesai.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+                        jamselesai.setText(selectedHour+":" +selectedMinute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -118,14 +118,13 @@ public class add_question extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView txt = new TextView(add_question.this);
-                txt.setText("Soal "+item);
+                txt.setText("Pertanyaan ke-"+item);
                 EditText edt = new EditText(add_question.this);
                 TextView txt2 = new TextView(add_question.this);
-                txt2.setText("Jawaban Soal "+item);
+                txt2.setText("Jawaban Pertanyaan ke-"+item);
                 EditText edt2 = new EditText(add_question.this);
                 LinearLayout lay = new LinearLayout(add_question.this);
                 lay.setOrientation(LinearLayout.VERTICAL);
-                lay.setPadding(0,0,0,10);
                 lay.addView(txt);
                 lay.addView(edt);
                 lay.addView(txt2);

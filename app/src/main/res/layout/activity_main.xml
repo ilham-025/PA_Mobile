@@ -64,6 +64,20 @@
                     android:padding="20dp"
                     android:textColorHint="#606060"
                     android:inputType="textPassword"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Lupa Password?"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:text="Klik disini!"
+                    android:textColor="#285FBA"
+                    android:layout_gravity="right"/>
             </LinearLayout>
 
             <LinearLayout
