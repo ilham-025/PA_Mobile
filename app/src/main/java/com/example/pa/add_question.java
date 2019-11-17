@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -118,18 +117,25 @@ public class add_question extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView txt = new TextView(add_question.this);
-                txt.setText("Pertanyaan ke-"+item);
+                txt.setText(item+". ");
+
                 EditText edt = new EditText(add_question.this);
-                TextView txt2 = new TextView(add_question.this);
-                txt2.setText("Jawaban Pertanyaan ke-"+item);
+                edt.setWidth(lySoal.getWidth());
+                edt.setHint("Pertanyaan");
                 EditText edt2 = new EditText(add_question.this);
+                edt2.setHint("Jawaban");
+                edt2.setWidth(lySoal.getWidth());
+
                 LinearLayout lay = new LinearLayout(add_question.this);
                 lay.setOrientation(LinearLayout.VERTICAL);
-                lay.addView(txt);
                 lay.addView(edt);
-                lay.addView(txt2);
                 lay.addView(edt2);
-                lySoal.addView(lay);
+
+                LinearLayout lay2 = new LinearLayout(add_question.this);
+                lay2.setOrientation(LinearLayout.HORIZONTAL);
+                lay2.addView(txt);
+                lay2.addView(lay);
+                lySoal.addView(lay2);
                 item++;
             }
         });

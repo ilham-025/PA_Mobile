@@ -60,13 +60,13 @@
                         android:orientation="horizontal">
                         <EditText
                             android:id="@+id/jam_mulai"
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:hint="@string/jam"
                             android:editable="false"/>
                         <EditText
                             android:id="@+id/tgl_mulai"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:hint="@string/tanggal"
                             android:editable="false"/>
@@ -87,13 +87,13 @@
                         android:orientation="horizontal">
                         <EditText
                             android:id="@+id/jam_selesai"
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:hint="@string/jam"
                             android:editable="false"/>
                         <EditText
                             android:id="@+id/tgl_selesai"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:hint="@string/tanggal"
                             android:editable="false"/>
