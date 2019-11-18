@@ -28,16 +28,15 @@ public class AddStudentRequest extends com.example.pa.Request.Request {
 
     String url = "http://"+getIp()+"/elearning/public/api/add-student";
     JSONObject studentData;
-    Context context;
-    RequestQueue requestQueue;
     Student student;
+    static String message;
     public AddStudentRequest(Context context){
-        this.context = context;
+        super(context);
         studentData = new JSONObject();
         String TAG = "nambah";
         Log.d(TAG,url);
     }
-    public Student start(Student student){
+    public String start(Student student){
         try {
             studentData.put("name",student.getNama());
             studentData.put("email",student.getEmail());
@@ -48,7 +47,6 @@ public class AddStudentRequest extends com.example.pa.Request.Request {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, studentData, new Response.Listener<JSONObject>() {
 
@@ -57,6 +55,15 @@ public class AddStudentRequest extends com.example.pa.Request.Request {
 
                         String TAG = "nambah";
                         Log.d(TAG,response.toString());
+                        try {
+                            if(response.getInt("status")==200){
+                                AddStudentRequest.message = "Murid berhasil di tambah";
+                            }else {
+                                AddStudentRequest.message = "murid gagal ditambah";
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -69,6 +76,6 @@ public class AddStudentRequest extends com.example.pa.Request.Request {
         requestQueue.add(jsonObjectRequest);
 
 
-        return student;
+        return message;
     }
 }

@@ -26,37 +26,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:inputType="text"
-        android:layout_marginBottom="16dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/username"/>
-    <EditText
-        android:id="@+id/email_student"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="16dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/password"/>
-    <EditText
-        android:id="@+id/password_student"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:layout_marginBottom="16dp"/>
-    <Button
-        android:id="@+id/create_student"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:text="@string/tambah_siswa"
-        android:textColor="@android:color/white"/>
-=======
         android:orientation="vertical"
         android:padding="20dp">
         <TextView
@@ -97,5 +66,4 @@
             android:text="@string/tambah"
             android:textColor="@android:color/white"/>
     </LinearLayout>
->>>>>>> bd8e23a77b912f85e9d443a55da47728dc1dd37b
 </LinearLayout>
