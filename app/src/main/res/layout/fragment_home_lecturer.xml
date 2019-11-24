@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <EditText
-                android:layout_width="240dp"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:textColor="@android:color/black"
                 android:hint="@string/announce"/>
