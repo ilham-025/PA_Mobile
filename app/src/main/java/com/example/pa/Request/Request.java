@@ -8,7 +8,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pa.Adapter.ListAnnouncementAdapter;
+import com.example.pa.FragmentHomeLecturer;
 import com.example.pa.FragmentStudentLecturer;
+import com.example.pa.Model.Announcement;
 import com.example.pa.Model.Student;
 
 import org.json.JSONArray;
@@ -23,6 +26,7 @@ public class Request {
     protected Student student;
     protected static String message;
     protected ArrayList<Student> list;
+    ArrayList<Announcement> announcements;
 
     public Request(Context context){
         this.context = context;
@@ -70,7 +74,61 @@ public class Request {
 
         requestQueue.add(jsonObjectRequest);
 
-//        return list;
+    }
+    public void getAllAnnouncement(final FragmentHomeLecturer.onServerCallBack onServerCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/announcements";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET,url,null,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                announcements = new ArrayList<Announcement>();
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Announcement announcement= new Announcement();
+                        announcement.setId(jsonObject.getInt("id"));
+                        announcement.setName(jsonObject.getString("name"));
+                        announcement.setDate(jsonObject.getString("date"));
+                        announcement.setText(jsonObject.getString("date"));
+                        announcements.add(announcement);
+                    }
+                    onServerCallBack.onSuccess(announcements);
+                    Log.d("list announcement",announcements.toString());
+                }catch (Exception e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error response","error vro");
+                    }
+                });
+        requestQueue.add(jsonObjectRequest);
+    }
+    public void addAnnouncement(Announcement announcement, FragmentHomeLecturer.onServerCallBack onServerCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/add-announcement";
+        JSONObject announcementData = new JSONObject();
+        try {
+            announcementData.put("name",announcement.getName());
+            announcementData.put("date",announcement.getDate());
+            announcementData.put("text",announcement.getText());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, announcementData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
     public void editStudent(Student student, final FragmentStudentLecturer.ServerCallBack serverCallBack){
         JSONObject studentData = new JSONObject();

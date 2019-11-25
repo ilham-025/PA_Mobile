@@ -1,5 +1,6 @@
 package com.example.pa;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     TextView tv_password;
     Student student;
     Request request;
+    int position;
     AddStudentRequest ASR;
     boolean isEdit;
 
@@ -49,6 +51,9 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         student = getIntent().getParcelableExtra(EXTRA_STUDENT);
         if(student!=null){
             isEdit = getIntent().getBooleanExtra(EXTRA_ISEDIT,false);
+            position = getIntent().getIntExtra(EXTRA_POSITION,0);
+        }else {
+            student = new Student();
         }
         if(isEdit){
             tv_name.setText(student.getNama());
@@ -58,12 +63,13 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         }
     }
     public void showSnackbarMessage(String message){
-        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.create_student){
+//            Log.d("coba",tv_name.getText().toString().trim());
             student.setNama(tv_name.getText().toString().trim());
             student.setEmail(tv_email.getText().toString().trim());
             student.setPassword(tv_password.getText().toString().trim());
@@ -71,6 +77,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
             if(isEdit){
                 request.editStudent(student,this);
             }else {
+
                 ASR = new AddStudentRequest(this);
                 student.setRole("student");
                 new AddStudentAsync().execute();
@@ -86,9 +93,10 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onSuccesEdit(String responseMessage) {
         showSnackbarMessage(responseMessage);
-//        intent.putExtra(EXTRA_POSITION,position);
-//        setResult(RESULT_UPDATE,intent);
-//        finish();
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_POSITION,position);
+        setResult(RESULT_UPDATE,intent);
+        finish();
     }
 
     class AddStudentAsync extends AsyncTask<Void,Void, String> {
@@ -105,8 +113,8 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         @Override
         protected void onPostExecute(String message) {
             super.onPostExecute(message);
-            showSnackbarMessage(message);
-
+//            showSnackbarMessage(message);
+            finish();
 
         }
     }

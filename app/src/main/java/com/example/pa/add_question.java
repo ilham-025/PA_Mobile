@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ public class add_question extends AppCompatActivity {
     protected DatePickerDialog.OnDateSetListener date_start, date_finish;
     protected ImageButton btnAddQuestion;
     protected LinearLayout lySoal;
+    protected Button btnCreateSoal;
     protected EditText tglmulai, tglselesai, jammulai, jamselesai;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class add_question extends AppCompatActivity {
         setContentView(R.layout.add_question);
 
         btnAddQuestion = findViewById(R.id.add_question);
+        btnCreateSoal = findViewById(R.id.btn_create_question);
         lySoal = findViewById(R.id.ly_soal);
         tglmulai = findViewById(R.id.tgl_mulai);
         jammulai = findViewById(R.id.jam_mulai);
@@ -131,12 +134,19 @@ public class add_question extends AppCompatActivity {
                 lay.addView(edt);
                 lay.addView(edt2);
 
+
                 LinearLayout lay2 = new LinearLayout(add_question.this);
                 lay2.setOrientation(LinearLayout.HORIZONTAL);
                 lay2.addView(txt);
                 lay2.addView(lay);
                 lySoal.addView(lay2);
                 item++;
+            }
+        });
+        btnCreateSoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
