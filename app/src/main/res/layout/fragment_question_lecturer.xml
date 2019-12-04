@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:layout_marginTop="55dp"
     android:layout_marginBottom="50dp">
+    <ProgressBar
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/pg_question"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_question"
         android:layout_width="wrap_content"

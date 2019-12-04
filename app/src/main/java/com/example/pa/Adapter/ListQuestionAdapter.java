@@ -1,5 +1,6 @@
 package com.example.pa.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ public class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapte
 
     private ArrayList<Problem> problems;
     private OnQuestionListListener onQuestionListListener;
+    private Context context;
+
+    public ListQuestionAdapter(Context context, OnQuestionListListener onQuestionListListener){
+        this.context = context;
+        this.onQuestionListListener = onQuestionListListener;
+    }
 
     @NonNull
     @Override

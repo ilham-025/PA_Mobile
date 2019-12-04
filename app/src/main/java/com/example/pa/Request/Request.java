@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pa.FragmentHomeLecturer;
+import com.example.pa.FragmentQuestionLecturer;
 import com.example.pa.FragmentStudentLecturer;
 import com.example.pa.Model.Announcement;
 import com.example.pa.Model.Problem;
@@ -38,6 +39,42 @@ public class Request {
     protected String ip ="192.168.137.1";
     public String getIp(){
         return this.ip;
+    }
+    public void getAllProblem(final FragmentQuestionLecturer.ServerCallBack serverCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/problems";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                ArrayList<Problem> problems = new ArrayList<Problem>();
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Problem problem = new Problem();
+                        problem.setTitle(jsonObject.getString("title"));
+                        problem.setStartDate(jsonObject.getString("start_date"));
+                        problem.setStartTime(jsonObject.getString("start_time"));
+                        problem.setEndDate(jsonObject.getString("end_date"));
+                        problem.setEndTime(jsonObject.getString("end_time"));
+                        problem.setId(jsonObject.getInt("id"));
+                        problems.add(problem);
+                        Log.d("test",problem.getTitle());
+                    }
+                    serverCallBack.onSuccess(list);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",error.toString());
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
     public void addProblem(Problem problem, ArrayList<ProblemNumber> listProblemNumber){
         String url = "http://"+getIp()+"/elearning/public/api/add-problem";
