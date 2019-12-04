@@ -24,40 +24,36 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <EditText
-<<<<<<< HEAD
-                android:layout_width="230dp"
                 android:layout_marginEnd="10dp"
-=======
                 android:layout_width="550px"
                 android:id="@+id/edt_announcement"
->>>>>>> acaf80472952442f525616f6b4bbae69c028e6d8
                 android:layout_height="match_parent"
                 android:textColor="@android:color/black"
                 android:hint="@string/announce"/>
             <ImageButton
-<<<<<<< HEAD
-                android:layout_width="match_parent"
-=======
                 android:id="@+id/btn_add_announcement"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="4dp"
                 android:layout_width="50dp"
->>>>>>> acaf80472952442f525616f6b4bbae69c028e6d8
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_arrow_forward_black_24dp"
                 android:background="@drawable/button_background"/>
         </LinearLayout>
     </LinearLayout>
-    <ProgressBar
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:id="@+id/pg_announcement"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_announcement"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_row_announce"/>
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/pg_announcement"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical|center_horizontal"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_announcement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_row_announce"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
