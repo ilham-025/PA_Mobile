@@ -12,7 +12,7 @@
         android:title="@string/student" />
     <item
         android:id="@+id/question_menu_lct"
-        android:icon="@drawable/ic_question_answer_black_24dp"
+        android:icon="@drawable/ic_assignment_black_24dp"
         android:title="@string/question" />
     <group />
     <item
