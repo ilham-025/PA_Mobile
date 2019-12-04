@@ -47,7 +47,7 @@
                     android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
                     android:drawablePadding="10dp"
                     android:hint="@string/e_mail"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:padding="20dp"
                     android:textColorHint="#606060"
                     android:textSize="14sp" />

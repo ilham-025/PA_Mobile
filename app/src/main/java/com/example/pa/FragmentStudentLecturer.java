@@ -57,7 +57,7 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
             @Override
             public void onClick(View v) {
                 Intent moveAdd = new Intent(getContext(), add_student.class);
-                startActivity(moveAdd);
+                startActivityForResult(moveAdd,add_student.REQUEST_ADD);
             }
         });
     }
@@ -106,11 +106,21 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
         }
     }
     public void showSnackbarMessage(String message){
-        Snackbar.make(this.getActivity().getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(rv_student,message,Snackbar.LENGTH_SHORT).show();
     }
     public interface ServerCallBack{
         void onSuccess(ArrayList<Student> students);
         void onSuccesEdit(String responseMessage);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onActivityCreated(getArguments());
+        if(requestCode==add_student.REQUEST_UPDATE){
+            if (resultCode==add_student.RESULT_UPDATE){
+//                showSnackbarMessage("Murid Berhasil di Edit");
+            }
+        }
+    }
 }
