@@ -7,6 +7,20 @@ import android.os.Parcelable;
 public class Problem implements Parcelable {
     private int id;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public static Creator<Problem> getCREATOR() {
+        return CREATOR;
+    }
+
+    private String title;
+
     public Problem(){
 
     }
@@ -17,6 +31,7 @@ public class Problem implements Parcelable {
         startDate = in.readString();
         endTime = in.readString();
         endDate = in.readString();
+        title = in.readString();
     }
 
     public static final Creator<Problem> CREATOR = new Creator<Problem>() {
@@ -88,5 +103,6 @@ public class Problem implements Parcelable {
         dest.writeString(startTime);
         dest.writeString(endTime);
         dest.writeString(endDate);
+        dest.writeString(title);
     }
 }

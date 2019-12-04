@@ -32,7 +32,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
     protected ImageButton btnAddQuestion;
     protected LinearLayout lySoal;
     protected Button btnCreateSoal;
-    protected EditText tglmulai, tglselesai, jammulai, jamselesai;
+    protected EditText tglmulai, tglselesai, jammulai, jamselesai,edt_judul_soal;
     protected Request request;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
         jammulai = findViewById(R.id.jam_mulai);
         tglselesai = findViewById(R.id.tgl_selesai);
         jamselesai = findViewById(R.id.jam_selesai);
+        edt_judul_soal = findViewById(R.id.judul_soal);
 
         listEditTextJawaban = new ArrayList<EditText>();
         listEditTextPertanyaan = new ArrayList<EditText>();
@@ -168,12 +169,14 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         ArrayList<ProblemNumber> listProblemNuber = new ArrayList<ProblemNumber>();
         if(v.getId()==R.id.btn_create_question){
+            String title = edt_judul_soal.getText().toString().trim();
             String startTime = jammulai.getText().toString().trim();
             String startDate = tglmulai.getText().toString().trim();
             String endTime = jamselesai.getText().toString().trim();
             String endDate = tglselesai.getText().toString().trim();
             Problem problem = new Problem();
             problem.setStartTime(startTime);
+            problem.setTitle(title);
             problem.setStartDate(startDate);
             problem.setEndTime(endTime);
             problem.setEndDate(endDate);
