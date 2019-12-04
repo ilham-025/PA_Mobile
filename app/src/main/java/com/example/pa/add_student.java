@@ -69,7 +69,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.create_student){
-//            Log.d("coba",tv_name.getText().toString().trim());
+//            Log.d("coba",tv_name.getPertanyaan().toString().trim());
             student.setNama(tv_name.getText().toString().trim());
             student.setEmail(tv_email.getText().toString().trim());
             student.setPassword(tv_password.getText().toString().trim());

@@ -59,6 +59,6 @@ public class ListAnnouncementAdapter extends RecyclerView.Adapter<ListAnnounceme
         public void onClick();
     }
 //    public interface ServerCallBack{
-//        void onSuccess();
+//        void onSuccessLoad();
 //    }
 }

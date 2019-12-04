@@ -3,6 +3,7 @@ package com.example.pa;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,23 +13,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.pa.Model.Problem;
+import com.example.pa.Model.ProblemNumber;
+import com.example.pa.Request.Request;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class add_question extends AppCompatActivity {
+public class add_question extends AppCompatActivity implements View.OnClickListener, Request.OnServerCallBack {
+    protected ArrayList<EditText> listEditTextPertanyaan;
+    protected ArrayList<EditText> listEditTextJawaban;
     protected Calendar myCalendar;
     protected DatePickerDialog.OnDateSetListener date_start, date_finish;
     protected ImageButton btnAddQuestion;
     protected LinearLayout lySoal;
     protected Button btnCreateSoal;
     protected EditText tglmulai, tglselesai, jammulai, jamselesai;
-
+    protected Request request;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_question);
+
+        request = new Request(this);
 
         btnAddQuestion = findViewById(R.id.add_question);
         btnCreateSoal = findViewById(R.id.btn_create_question);
@@ -37,6 +47,9 @@ public class add_question extends AppCompatActivity {
         jammulai = findViewById(R.id.jam_mulai);
         tglselesai = findViewById(R.id.tgl_selesai);
         jamselesai = findViewById(R.id.jam_selesai);
+
+        listEditTextJawaban = new ArrayList<EditText>();
+        listEditTextPertanyaan = new ArrayList<EditText>();
 
         myCalendar = Calendar.getInstance();
         date_start = new DatePickerDialog.OnDateSetListener() {
@@ -125,15 +138,19 @@ public class add_question extends AppCompatActivity {
                 EditText edt = new EditText(add_question.this);
                 edt.setWidth(lySoal.getWidth());
                 edt.setHint("Pertanyaan");
+                edt.setId(View.generateViewId());
                 EditText edt2 = new EditText(add_question.this);
                 edt2.setHint("Jawaban");
                 edt2.setWidth(lySoal.getWidth());
+                edt2.setId(View.generateViewId());
 
                 LinearLayout lay = new LinearLayout(add_question.this);
                 lay.setOrientation(LinearLayout.VERTICAL);
                 lay.addView(edt);
                 lay.addView(edt2);
 
+                listEditTextPertanyaan.add(edt);
+                listEditTextJawaban.add(edt2);
 
                 LinearLayout lay2 = new LinearLayout(add_question.this);
                 lay2.setOrientation(LinearLayout.HORIZONTAL);
@@ -143,12 +160,37 @@ public class add_question extends AppCompatActivity {
                 item++;
             }
         });
-        btnCreateSoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+        btnCreateSoal.setOnClickListener(this);
+
+    }
+    @Override
+    public void onClick(View v) {
+        ArrayList<ProblemNumber> listProblemNuber = new ArrayList<ProblemNumber>();
+        if(v.getId()==R.id.btn_create_question){
+            String startTime = jammulai.getText().toString().trim();
+            String startDate = tglmulai.getText().toString().trim();
+            String endTime = jamselesai.getText().toString().trim();
+            String endDate = tglselesai.getText().toString().trim();
+            Problem problem = new Problem();
+            problem.setStartTime(startTime);
+            problem.setStartDate(startDate);
+            problem.setEndTime(endTime);
+            problem.setEndDate(endDate);
+            for(int i = 0 ;i<listEditTextJawaban.size();i++){
+                ProblemNumber problemNumber = new ProblemNumber();
+                problemNumber.setNumber(i);
+                problemNumber.setPertanyaan(listEditTextPertanyaan.get(i).getText().toString().trim());
+                problemNumber.setJawaban(listEditTextJawaban.get(i).getText().toString().trim());
+                listProblemNuber.add(problemNumber);
             }
-        });
+//            Log.d("lol",problem.getStartTime());
+//            Log.d("lil",problem.getStartDate());
+            Log.d("lel",endTime);
+//            Log.d("lal",problem.getEndDate());
+
+            request.addProblem(problem,listProblemNuber);
+        }
     }
 
     private void updateLabelStart() {
@@ -161,5 +203,16 @@ public class add_question extends AppCompatActivity {
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         tglselesai.setText(sdf.format(myCalendar.getTime()));
+    }
+
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

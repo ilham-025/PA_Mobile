@@ -25,7 +25,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <EditText
-                android:layout_width="200dp"
+                android:layout_width="550px"
+                android:id="@+id/edt_announcement"
                 android:layout_height="match_parent"
                 android:textColor="@android:color/black"
                 android:hint="@string/announce"/>
@@ -43,7 +44,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/pg_announcement"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_announcement"
         android:layout_width="match_parent"

@@ -22,7 +22,7 @@ public abstract class LoginRequest extends Context{
                     public void onResponse(JSONObject response) {
                          String TAG = "login";
                          Log.d(TAG,"bisa yeay");
-//                        textView.setText("Response: " + response.toString());
+//                        textView.setPertanyaan("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
 
