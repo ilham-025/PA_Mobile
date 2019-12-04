@@ -44,6 +44,7 @@ public class Request {
 
         JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject.put("title",problem.getTitle());
             jsonObject.put("start_time",problem.getStartTime());
             jsonObject.put("start_date",problem.getStartDate());
             jsonObject.put("end_time",problem.getEndTime());
