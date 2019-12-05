@@ -29,4 +29,6 @@
     <string name="jam">Jam</string>
     <string name="tanggal">Tanggal</string>
     <string name="tambah_pertanyaan">Tambah Pertanyaan</string>
+    <string name="name">Nama</string>
+    <string name="log_out">Log Out</string>
 </resources>

@@ -9,41 +9,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.pa.Adapter.ListQuestionAdapter;
-import com.example.pa.Model.Problem;
-import com.example.pa.Model.Student;
-import com.example.pa.Request.Request;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pa.Adapter.ListQuestionReadyAdapter;
+import com.example.pa.Model.Problem;
+import com.example.pa.Request.Request;
+
 import java.util.ArrayList;
 
-public class FragmentQuestionLecturer extends Fragment implements ListQuestionAdapter.OnQuestionListListener {
-    private FloatingActionButton btnAdd;
+public class FragmentQuestionStudent extends Fragment implements ListQuestionReadyAdapter.OnQuestionListListener {
+
     private Request request;
     private RecyclerView rvProblem;
-    private ListQuestionAdapter listQuestionAdapter;
+    private ListQuestionReadyAdapter listQuestionReadyAdapter;
     private ArrayList<Problem> problems;
     private ProgressBar progressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_lecturer, container, false);
-        btnAdd = view.findViewById(R.id.btn_add_question);
-        rvProblem = view.findViewById(R.id.rv_question_lecturer);
+        View view = inflater.inflate(R.layout.fragment_question_student, container, false);
+        rvProblem = view.findViewById(R.id.rv_question_student);
         progressBar = view.findViewById(R.id.pg_question);
 
         problems = new ArrayList<Problem>();
         rvProblem.setLayoutManager(new LinearLayoutManager(getContext()));
-        listQuestionAdapter = new ListQuestionAdapter(getContext(),this);
-        listQuestionAdapter.setListProblem(problems);
-        rvProblem.setAdapter(listQuestionAdapter);
-
+        listQuestionReadyAdapter = new ListQuestionReadyAdapter(getContext(),this);
+        listQuestionReadyAdapter.setListProblem(problems);
+        rvProblem.setAdapter(listQuestionReadyAdapter);
         return view;
     }
 
@@ -51,22 +48,15 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         request = new Request(this.getContext());
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent move = new Intent(getContext(), add_question.class);
-                startActivity(move);
-            }
-        });
         new LoadProblemAsync().execute();
     }
-
 
     @Override
     public void onClick(int position, Problem problem, boolean isEdit) {
 
     }
-    private class LoadProblemAsync extends AsyncTask<Void,Void, Void> implements onServerCallBack{
+
+    private class LoadProblemAsync extends AsyncTask<Void,Void, Void> implements onServerCallBack {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -87,8 +77,8 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
             progressBar.setVisibility(View.GONE);
             problems.addAll(problem);
             Log.d("test","masuk");
-            listQuestionAdapter.setListProblem(problem);
-            listQuestionAdapter.notifyDataSetChanged();
+            listQuestionReadyAdapter.setListProblem(problem);
+            listQuestionReadyAdapter.notifyDataSetChanged();
         }
     }
     public interface onServerCallBack{

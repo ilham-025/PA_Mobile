@@ -6,9 +6,19 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="50dp"
     android:layout_marginTop="55dp">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_students"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_row_announce"/>
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/pg_announcement"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical|center_horizontal"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_announcement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_row_announce"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

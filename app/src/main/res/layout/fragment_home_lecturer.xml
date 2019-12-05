@@ -19,27 +19,26 @@
             android:layout_height="80dp"
             android:layout_marginEnd="10dp"
             tools:src="@android:color/darker_gray" />
-        <LinearLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
             <EditText
-                android:layout_marginEnd="10dp"
-                android:layout_width="550px"
                 android:id="@+id/edt_announcement"
+                android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:textColor="@android:color/black"
-                android:hint="@string/announce"/>
+                android:layout_marginEnd="10dp"
+                android:hint="@string/announce"
+                android:textColor="@android:color/black" />
             <ImageButton
                 android:id="@+id/btn_add_announcement"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="right|center_vertical"
                 android:src="@drawable/ic_arrow_forward_black_24dp"
                 android:background="@drawable/button_background"/>
-        </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
