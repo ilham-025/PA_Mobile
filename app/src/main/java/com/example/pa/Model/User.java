@@ -3,12 +3,12 @@ package com.example.pa.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Student implements Parcelable {
+public class User implements Parcelable {
     private int id;
     private String email;
     private String role;
 
-    public Student() {
+    public User() {
 
     }
 
@@ -30,7 +30,7 @@ public class Student implements Parcelable {
 
     private String nama;
 
-    public Student(Parcel in) {
+    public User(Parcel in) {
         id = in.readInt();
         email = in.readString();
         password = in.readString();
@@ -38,15 +38,15 @@ public class Student implements Parcelable {
         role = in.readString();
     }
 
-    public static final Creator<Student> CREATOR = new Creator<Student>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Student createFromParcel(Parcel in) {
-            return new Student(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Student[] newArray(int size) {
-            return new Student[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 

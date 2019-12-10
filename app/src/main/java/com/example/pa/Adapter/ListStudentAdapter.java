@@ -5,17 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.pa.Model.Student;
+import com.example.pa.Model.User;
 import com.example.pa.R;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.UserViewHolder> {
-    private ArrayList<Student> students;
+    private ArrayList<User> users;
     private OnStudentListListener onStudentListListener;
 
     public ListStudentAdapter(OnStudentListListener onStudentListListener){
@@ -30,18 +29,18 @@ public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Student student = students.get(position);
-        holder.tvNama.setText(student.getNama());
-        holder.tvEmaill.setText(student.getEmail());
+        User user = users.get(position);
+        holder.tvNama.setText(user.getNama());
+        holder.tvEmaill.setText(user.getEmail());
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return users.size();
     }
 
-    public void setListStudent(ArrayList<Student> students){
-        this.students = students;
+    public void setListStudent(ArrayList<User> users){
+        this.users = users;
     }
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvNama,tvEmaill;
@@ -54,11 +53,11 @@ public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.
 
         @Override
         public void onClick(View v) {
-            onStudentListListener.onClick(getAdapterPosition(),students.get(getAdapterPosition()),true);
+            onStudentListListener.onClick(getAdapterPosition(), users.get(getAdapterPosition()),true);
         }
     }
     public interface OnStudentListListener{
-        void onClick(int position, Student student, boolean isEdit);
+        void onClick(int position, User user, boolean isEdit);
 
     }
 }
