@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.pa.Adapter.ListStudentAdapter;
-import com.example.pa.Model.Student;
+import com.example.pa.Model.User;
 import com.example.pa.Request.Request;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class FragmentStudentLecturer extends Fragment implements ListStudentAdapter.OnStudentListListener {
     private FloatingActionButton btnAdd;
     private RecyclerView rv_student;
-    private ArrayList<Student> list;
+    private ArrayList<User> list;
     private ListStudentAdapter adapter;
     private Request request;
     private ProgressBar progressBar;
@@ -69,9 +69,9 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
     }
 
     @Override
-    public void onClick(int position, Student student, boolean isEdit) {
+    public void onClick(int position, User user, boolean isEdit) {
         Intent moveIntent = new Intent(this.getActivity(),add_student.class);
-        moveIntent.putExtra(add_student.EXTRA_STUDENT,student);
+        moveIntent.putExtra(add_student.EXTRA_STUDENT, user);
         moveIntent.putExtra(add_student.EXTRA_POSITION,position);
         moveIntent.putExtra(add_student.EXTRA_ISEDIT,isEdit);
         startActivityForResult(moveIntent,add_student.REQUEST_UPDATE);
@@ -92,9 +92,9 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
              return null;
         }
         @Override
-        public void onSuccess(ArrayList<Student> students) {
+        public void onSuccess(ArrayList<User> users) {
             progressBar.setVisibility(View.GONE);
-            list.addAll(students);
+            list.addAll(users);
             adapter.setListStudent(list);
             adapter.notifyDataSetChanged();
 
@@ -109,7 +109,7 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
         Snackbar.make(rv_student,message,Snackbar.LENGTH_SHORT).show();
     }
     public interface ServerCallBack{
-        void onSuccess(ArrayList<Student> students);
+        void onSuccess(ArrayList<User> users);
         void onSuccesEdit(String responseMessage);
     }
 

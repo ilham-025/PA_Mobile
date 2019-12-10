@@ -3,32 +3,21 @@ package com.example.pa.Request;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.pa.Model.Student;
+import com.example.pa.Model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.util.ArrayList;
-
 
 public class AddStudentRequest extends com.example.pa.Request.Request {
 
-    String url = "http://"+getIp()+"/elearning/public/api/add-student";
+    String url = "http://"+getIp()+"/elearning/public/api/add-user";
     JSONObject studentData;
-    Student student;
+    User user;
     static String message;
     public AddStudentRequest(Context context){
         super(context);
@@ -36,14 +25,14 @@ public class AddStudentRequest extends com.example.pa.Request.Request {
         String TAG = "nambah";
         Log.d(TAG,url);
     }
-    public String start(Student student){
+    public String start(User user){
         try {
-            studentData.put("name",student.getNama());
-            studentData.put("email",student.getEmail());
-            studentData.put("password",student.getPassword());
-            studentData.put("role",student.getRole());
+            studentData.put("name", user.getNama());
+            studentData.put("email", user.getEmail());
+            studentData.put("password", user.getPassword());
+            studentData.put("role", user.getRole());
             String TAG = "nambah";
-            Log.d(TAG,student.getNama());
+            Log.d(TAG, user.getNama());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -3,15 +3,13 @@ package com.example.pa;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.pa.Model.Student;
+import com.example.pa.Model.User;
 import com.example.pa.Request.AddStudentRequest;
 import com.example.pa.Request.Request;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     TextView tv_name;
     TextView tv_email;
     TextView tv_password;
-    Student student;
+    User user;
     Request request;
     int position;
     AddStudentRequest ASR;
@@ -42,23 +40,23 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_student);
         btnCreateStudent = findViewById(R.id.create_student);
-        student = new Student();
+        user = new User();
         tv_name = findViewById(R.id.name_student);
         tv_email = findViewById(R.id.email_student);
         tv_password = findViewById(R.id.password_student);
         request = new Request(this);
         btnCreateStudent.setOnClickListener(this);
-        student = getIntent().getParcelableExtra(EXTRA_STUDENT);
-        if(student!=null){
+        user = getIntent().getParcelableExtra(EXTRA_STUDENT);
+        if(user !=null){
             isEdit = getIntent().getBooleanExtra(EXTRA_ISEDIT,false);
             position = getIntent().getIntExtra(EXTRA_POSITION,0);
         }else {
-            student = new Student();
+            user = new User();
         }
         if(isEdit){
-            tv_name.setText(student.getNama());
-            tv_email.setText(student.getEmail());
-            tv_password.setText(student.getPassword());
+            tv_name.setText(user.getNama());
+            tv_email.setText(user.getEmail());
+            tv_password.setText(user.getPassword());
             btnCreateStudent.setText("Simpan");
         }
     }
@@ -70,23 +68,23 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if(v.getId()==R.id.create_student){
 //            Log.d("coba",tv_name.getPertanyaan().toString().trim());
-            student.setNama(tv_name.getText().toString().trim());
-            student.setEmail(tv_email.getText().toString().trim());
-            student.setPassword(tv_password.getText().toString().trim());
+            user.setNama(tv_name.getText().toString().trim());
+            user.setEmail(tv_email.getText().toString().trim());
+            user.setPassword(tv_password.getText().toString().trim());
 
             if(isEdit){
-                request.editStudent(student,this);
+                request.editStudent(user,this);
             }else {
 
                 ASR = new AddStudentRequest(this);
-                student.setRole("student");
+                user.setRole("user");
                 new AddStudentAsync().execute();
             }
         }
     }
 
     @Override
-    public void onSuccess(ArrayList<Student> students) {
+    public void onSuccess(ArrayList<User> users) {
 
     }
 
@@ -107,7 +105,7 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
 
         @Override
         protected String doInBackground(Void... voids) {
-            return ASR.start(student);
+            return ASR.start(user);
         }
 
         @Override

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/student_menu_lct"
         android:icon="@drawable/ic_supervisor_account_black_24dp"
-        android:title="@string/student" />
+        android:title="@string/user" />
     <item
         android:id="@+id/question_menu_lct"
         android:icon="@drawable/ic_assignment_black_24dp"
