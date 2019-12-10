@@ -31,4 +31,6 @@
     <string name="tambah_pertanyaan">Tambah Pertanyaan</string>
     <string name="name">Nama</string>
     <string name="log_out">Log Out</string>
+    <string name="start_question">Kerjakan Soal</string>
+    <string name="finish">Selesai</string>
 </resources>
