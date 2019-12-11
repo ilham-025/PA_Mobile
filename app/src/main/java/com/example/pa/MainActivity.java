@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.pa.Model.Auth;
 import com.example.pa.Request.Request;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
-public class MainActivity extends AppCompatActivity implements Request.OnServerCallBack,View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements Request.OnServerPostCallBack,View.OnClickListener{
 
     private EditText edtEmail,edtPassword;
     private Button btnLogin;
@@ -32,14 +32,19 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerC
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String message) {
         Intent move;
-        if(Auth.user.getRole().equals("teacher")) {
-            move = new Intent(MainActivity.this, home_lecturer.class);
-        }else {
-            move = new Intent(this,home_student.class);
+        if(message.equals("success")){
+            if(Auth.user.getRole().equals("teacher")) {
+                move = new Intent(MainActivity.this, home_lecturer.class);
+            }else {
+                move = new Intent(this,home_student.class);
+            }
+            startActivity(move);
+        }else{
+            showSnackbarMessage("credential error");
         }
-        startActivity(move);
+
     }
 
     @Override
@@ -58,5 +63,8 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerC
                 e.printStackTrace();
             }
         }
+    }
+    public void showSnackbarMessage(String message){
+        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
     }
 }

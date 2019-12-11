@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class add_question extends AppCompatActivity implements View.OnClickListener, Request.OnServerCallBack {
+public class add_question extends AppCompatActivity implements View.OnClickListener, Request.OnServerPostCallBack {
     protected ArrayList<EditText> listEditTextPertanyaan;
     protected ArrayList<EditText> listEditTextJawaban;
     protected Calendar myCalendar;
@@ -210,7 +210,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String message) {
 
     }
 

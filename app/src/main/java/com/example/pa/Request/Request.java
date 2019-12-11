@@ -3,6 +3,7 @@ package com.example.pa.Request;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Request {
     protected Context context;
@@ -42,7 +45,7 @@ public class Request {
     public String getIp(){
         return this.ip;
     }
-    public void login(String email, String password, final OnServerCallBack onServerCallBack) throws JSONException {
+    public void login(String email, String password, final OnServerPostCallBack onServerCallBack) throws JSONException {
         String url = "http://"+getIp()+"/elearning/public/api/login";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email",email);
@@ -53,6 +56,7 @@ public class Request {
                 try {
                     if(response.has("status")){
                         Log.d("loginerror","credential invalid");
+                        onServerCallBack.onSuccess("error");
                     }else {
                         Auth.apiToken = response.getString("api_token");
                         Auth.user.setId(response.getInt("id"));
@@ -60,7 +64,7 @@ public class Request {
                         Auth.user.setPassword(response.getString("password"));
                         Auth.user.setNama(response.getString("name"));
                         Auth.user.setRole(response.getString("role"));
-                        onServerCallBack.onSuccess();
+                        onServerCallBack.onSuccess("success");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -205,7 +209,6 @@ public class Request {
                                     user.setPassword(jsonObject.getString("password"));
                                     user.setId(jsonObject.getInt("id"));
                                     list.add(user);
-                                    Log.d("test", user.getNama());
                                 }
                                 serverCallBack.onSuccess(list);
                         } catch (JSONException e) {
@@ -250,9 +253,17 @@ public class Request {
         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error response","error vro");
+                        Log.d("Error response",error.toString());
                     }
-                });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -282,9 +293,18 @@ public class Request {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error response","error vro");
+                Log.d("Error",error.toString());
+
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -313,7 +333,7 @@ public class Request {
         });
         requestQueue.add(jsonObjectRequest);
     }
-    public void editStudent(User user, final FragmentStudentLecturer.ServerCallBack serverCallBack){
+    public void editStudent(User user, final OnServerPostCallBack onServerCallBack){
         JSONObject studentData = new JSONObject();
         String url = "http://"+getIp()+"/elearning/public/api/edit-user";
         try {
@@ -322,8 +342,6 @@ public class Request {
             studentData.put("email", user.getEmail());
             studentData.put("password", user.getPassword());
             studentData.put("role", user.getRole());
-            String TAG = "nambah";
-            Log.d(TAG, user.getNama());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -332,7 +350,7 @@ public class Request {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            serverCallBack.onSuccesEdit(response.getString("message"));
+                            onServerCallBack.onSuccess(response.getString("message"));
                             Log.d("error",response.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -351,8 +369,42 @@ public class Request {
 
 //        return message;
     }
-    public interface OnServerCallBack{
-        public void onSuccess();
+    public void addStudent(User user, final OnServerPostCallBack onServerCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/add-user";
+        JSONObject studentData = new JSONObject();
+        try {
+            studentData.put("name", user.getNama());
+            studentData.put("email", user.getEmail());
+            studentData.put("password", user.getPassword());
+            studentData.put("role", user.getRole());
+            String TAG = "nambah";
+            Log.d(TAG, user.getNama());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (com.android.volley.Request.Method.POST, url, studentData, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        onServerCallBack.onSuccess("murid berhasil di tambah");
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", String.valueOf(error));
+
+                    }
+                });
+        requestQueue.add(jsonObjectRequest);
+
+    }
+    public interface OnServerPostCallBack {
+        public void onSuccess(String message);
         public void onError();
+    }
+    public interface OnServerGetCallBack{
+        public void onSuccess(ArrayList<Object> list);
     }
 }

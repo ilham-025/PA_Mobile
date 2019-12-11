@@ -1,21 +1,17 @@
 package com.example.pa;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pa.Model.User;
-import com.example.pa.Request.AddStudentRequest;
 import com.example.pa.Request.Request;
-
-import java.util.ArrayList;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class add_student extends AppCompatActivity implements View.OnClickListener, FragmentStudentLecturer.ServerCallBack {
+public class add_student extends AppCompatActivity implements View.OnClickListener, Request.OnServerPostCallBack {
     Button btnCreateStudent;
     TextView tv_name;
     TextView tv_email;
@@ -23,7 +19,6 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
     User user;
     Request request;
     int position;
-    AddStudentRequest ASR;
     boolean isEdit;
 
     public static String EXTRA_STUDENT = "extra_student";
@@ -61,60 +56,34 @@ public class add_student extends AppCompatActivity implements View.OnClickListen
         }
     }
     public void showSnackbarMessage(String message){
-//        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.create_student){
-//            Log.d("coba",tv_name.getPertanyaan().toString().trim());
             user.setNama(tv_name.getText().toString().trim());
             user.setEmail(tv_email.getText().toString().trim());
             user.setPassword(tv_password.getText().toString().trim());
 
             if(isEdit){
+                user.setRole("student");
                 request.editStudent(user,this);
             }else {
-
-                ASR = new AddStudentRequest(this);
-                user.setRole("user");
-                new AddStudentAsync().execute();
+                user.setRole("student");
+                request.addStudent(user,this);
             }
         }
     }
 
     @Override
-    public void onSuccess(ArrayList<User> users) {
-
+    public void onSuccess(String message) {
+        showSnackbarMessage(message);
     }
 
     @Override
-    public void onSuccesEdit(String responseMessage) {
-        showSnackbarMessage(responseMessage);
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_POSITION,position);
-        setResult(RESULT_UPDATE,intent);
-        finish();
-    }
+    public void onError() {
 
-    class AddStudentAsync extends AsyncTask<Void,Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            return ASR.start(user);
-        }
-
-        @Override
-        protected void onPostExecute(String message) {
-            super.onPostExecute(message);
-//            showSnackbarMessage(message);
-            finish();
-
-        }
     }
 }
 
