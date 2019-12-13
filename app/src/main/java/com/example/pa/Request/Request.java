@@ -45,6 +45,49 @@ public class Request {
     public String getIp(){
         return this.ip;
     }
+    public void getProblemNumber(int problem_id, final ProblemNumberReady problemNumberReady){
+        String url = "http://"+getIp()+"/elearning/public/api/problem-numbers-ready";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("problem_ id",problem_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                ArrayList<ProblemNumber> problemNumbers = new ArrayList<ProblemNumber>();
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        ProblemNumber problemNumber = new ProblemNumber();
+                        problemNumber.setNumber(jsonObject.getInt("number"));
+                        problemNumber.setPertanyaan(jsonObject.getString("pertanyaan"));
+                        problemNumber.setProblem_id(jsonObject.getInt("problem_id"));
+                        problemNumbers.add(problemNumber);
+                    }
+                    problemNumberReady.onSucces(problemNumbers);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
+    }
     public void login(String email, String password, final OnServerPostCallBack onServerCallBack) throws JSONException {
         String url = "http://"+getIp()+"/elearning/public/api/login";
         JSONObject jsonObject = new JSONObject();
@@ -76,7 +119,15 @@ public class Request {
             public void onErrorResponse(VolleyError error) {
                 onServerCallBack.onError();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
     public void getAllProblem(final FragmentQuestionLecturer.onServerCallBack serverCallBack){
@@ -111,7 +162,15 @@ public class Request {
             public void onErrorResponse(VolleyError error) {
                 Log.d("error",error.toString());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
     }
@@ -148,7 +207,15 @@ public class Request {
             public void onErrorResponse(VolleyError error) {
                 Log.d("error",error.toString());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
     }
@@ -187,7 +254,15 @@ public class Request {
                 Log.d("error nambah soal",error.toString());
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
     public void getAllStudent(final FragmentStudentLecturer.ServerCallBack serverCallBack){
@@ -222,7 +297,15 @@ public class Request {
                         Log.d("error", String.valueOf(error));
 
                     }
-                });
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
 
@@ -330,7 +413,15 @@ public class Request {
             public void onErrorResponse(VolleyError error) {
                 Log.d("menambah announcemnt","error Menambah");
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
     public void editStudent(User user, final OnServerPostCallBack onServerCallBack){
@@ -363,7 +454,15 @@ public class Request {
                         Log.d("error", String.valueOf(error));
 
                     }
-                });
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
 
 
@@ -396,7 +495,15 @@ public class Request {
                         Log.d("error", String.valueOf(error));
 
                     }
-                });
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -406,5 +513,8 @@ public class Request {
     }
     public interface OnServerGetCallBack{
         public void onSuccess(ArrayList<Object> list);
+    }
+    public interface ProblemNumberReady{
+        public void onSucces(ArrayList<ProblemNumber> list);
     }
 }
