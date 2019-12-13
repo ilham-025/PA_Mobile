@@ -21,10 +21,10 @@ public class StartQuestion extends AppCompatActivity {
         TextView txt = new TextView(StartQuestion.this);
         txt.setText(item+". ");
 
-        EditText edt = new EditText(StartQuestion.this);
-        edt.setWidth(lySoal.getWidth());
-        edt.setHint("Pertanyaan");
-        edt.setId(View.generateViewId());
+        TextView txtSoal = new TextView(StartQuestion.this);
+        txtSoal.setWidth(lySoal.getWidth());
+        txtSoal.setHint("Pertanyaan");
+        txtSoal.setId(View.generateViewId());
         EditText edt2 = new EditText(StartQuestion.this);
         edt2.setHint("Jawaban");
         edt2.setWidth(lySoal.getWidth());
@@ -32,7 +32,7 @@ public class StartQuestion extends AppCompatActivity {
 
         LinearLayout lay = new LinearLayout(StartQuestion.this);
         lay.setOrientation(LinearLayout.VERTICAL);
-        lay.addView(edt);
+        lay.addView(txtSoal);
         lay.addView(edt2);
 
         LinearLayout lay2 = new LinearLayout(StartQuestion.this);
