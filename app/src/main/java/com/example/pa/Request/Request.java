@@ -301,7 +301,7 @@ public class Request {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json; charset=UTF-8");
-                params.put("Authorization", "Bearer "+Auth.a    piToken);
+                params.put("Authorization", "Bearer "+Auth.apiToken);
                 return params;
             }
         };
