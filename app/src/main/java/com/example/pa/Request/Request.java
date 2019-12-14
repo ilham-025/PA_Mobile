@@ -45,15 +45,16 @@ public class Request {
     public String getIp(){
         return this.ip;
     }
-    public void getProblemNumber(int problem_id, final ProblemNumberReady problemNumberReady){
+    public void getProblemNumber(final int problem_id, final ProblemNumberReady problemNumberReady){
         String url = "http://"+getIp()+"/elearning/public/api/problem-numbers-ready";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("problem_ id",problem_id);
+            jsonObject.put("problem_id",problem_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        Log.d("dfkjn", String.valueOf(problem_id));
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -67,6 +68,7 @@ public class Request {
                         problemNumber.setPertanyaan(jsonObject.getString("pertanyaan"));
                         problemNumber.setProblem_id(jsonObject.getInt("problem_id"));
                         problemNumbers.add(problemNumber);
+                        Log.d("kngdfkjhgdfkjn", jsonObject.getString("pertanyaan"));
                     }
                     problemNumberReady.onSucces(problemNumbers);
                 }catch (Exception e){
@@ -87,6 +89,7 @@ public class Request {
                 return params;
             }
         };
+        requestQueue.add(jsonObjectRequest);
     }
     public void login(String email, String password, final OnServerPostCallBack onServerCallBack) throws JSONException {
         String url = "http://"+getIp()+"/elearning/public/api/login";

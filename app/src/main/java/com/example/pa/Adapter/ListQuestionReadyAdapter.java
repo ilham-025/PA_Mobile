@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,20 +50,22 @@ public class ListQuestionReadyAdapter extends RecyclerView.Adapter<ListQuestionR
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView judul, tempo;
+        Button btnStart;
         public ViewHolder(@NonNull View itemView, ListQuestionReadyAdapter.OnQuestionListListener onQuestionListListener) {
             super(itemView);
             judul = itemView.findViewById(R.id.tv_judul_soal);
             tempo = itemView.findViewById(R.id.tv_tempo);
-            itemView.setOnClickListener(this);
+            btnStart = itemView.findViewById(R.id.btn_kerjakan);
+            btnStart.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            onQuestionListListener.onClick(getAdapterPosition(), problems.get(getAdapterPosition()), true);
+            onQuestionListListener.onClick(problems.get(getAdapterPosition()).getId());
         }
     }
     public interface OnQuestionListListener{
-        void onClick(int position, Problem problem, boolean isEdit);
+        void onClick(int problemId);
 
     }
 }
