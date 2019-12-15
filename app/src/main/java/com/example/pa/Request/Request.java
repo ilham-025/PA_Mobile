@@ -15,6 +15,8 @@ import com.example.pa.FragmentQuestionLecturer;
 import com.example.pa.FragmentQuestionStudent;
 import com.example.pa.FragmentStudentLecturer;
 import com.example.pa.Model.Announcement;
+import com.example.pa.Model.Answer;
+import com.example.pa.Model.AnswerNumber;
 import com.example.pa.Model.Auth;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
@@ -44,6 +46,53 @@ public class Request {
     protected String ip ="192.168.137.1";
     public String getIp(){
         return this.ip;
+    }
+    public void addAnswer(Answer answer, ArrayList<AnswerNumber> answerNumbers, final AddProblemCallBack addProblemCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/add-answers";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("problem_id",answer.getProblem_id());
+            jsonObject.put("user_id",answer.getUser_id());
+            JSONArray answer_number_array = new JSONArray();
+            for(int i=0;i<answerNumbers.size();i++){
+                JSONObject answer_number_object = new JSONObject();
+                answer_number_object.put("text", answerNumbers.get(i).getText());
+                answer_number_object.put("answer_id", answerNumbers.get(i).getAnswer_id());
+                answer_number_array.put(answer_number_object);
+            }
+            jsonObject.put("answer_numbers", answer_number_array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.has("status") && response.getInt("status")==200){
+                        addProblemCallBack.success(response.getString("message"));
+                        Log.d("status",response.getString("message"));
+                    }
+                    Log.d("status",response.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
     public void getProblemNumber(final int problem_id, final ProblemNumberReady problemNumberReady){
         String url = "http://"+getIp()+"/elearning/public/api/problem-numbers-ready";
@@ -122,15 +171,7 @@ public class Request {
             public void onErrorResponse(VolleyError error) {
                 onServerCallBack.onError();
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json; charset=UTF-8");
-                params.put("Authorization", "Bearer "+Auth.apiToken);
-                return params;
-            }
-        };
+        });
         requestQueue.add(jsonObjectRequest);
     }
     public void getAllProblem(final FragmentQuestionLecturer.onServerCallBack serverCallBack){
@@ -519,5 +560,9 @@ public class Request {
     }
     public interface ProblemNumberReady{
         public void onSucces(ArrayList<ProblemNumber> list);
+    }
+    public interface AddProblemCallBack{
+        void success(String Message);
+        void error(String Message);
     }
 }

@@ -52,9 +52,10 @@ public class FragmentQuestionStudent extends Fragment implements ListQuestionRea
     }
 
     @Override
-    public void onClick(int problemId) {
+    public void onClick(int problemId, Problem problem) {
         Intent start = new Intent(getContext(), StartQuestion.class);
         start.putExtra(StartQuestion.EXTRA_PROBLEM_ID, problemId);
+        start.putExtra(StartQuestion.EXTRA_PROBLEM, problem);
         startActivity(start);
     }
 

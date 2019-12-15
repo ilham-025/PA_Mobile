@@ -61,11 +61,11 @@ public class ListQuestionReadyAdapter extends RecyclerView.Adapter<ListQuestionR
 
         @Override
         public void onClick(View view) {
-            onQuestionListListener.onClick(problems.get(getAdapterPosition()).getId());
+            onQuestionListListener.onClick(problems.get(getAdapterPosition()).getId(),problems.get(getAdapterPosition()));
         }
     }
     public interface OnQuestionListListener{
-        void onClick(int problemId);
+        void onClick(int problemId, Problem problem);
 
     }
 }
