@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.example.pa.Adapter.ListAnnouncementAdapter;
 import com.example.pa.Model.Announcement;
+import com.example.pa.Model.Auth;
 import com.example.pa.Request.Request;
 
 import java.text.DateFormat;
@@ -65,7 +66,7 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
             String text = edtAnnouncemnet.getText().toString().trim();
             if(!TextUtils.isEmpty(text)){
                 Announcement announcement = new Announcement();
-                announcement.setName("Gua");
+                announcement.setName(Auth.user.getNama());
                 announcement.setText(text);
                 announcement.setDate(getCurrentDate());
 

@@ -174,6 +174,43 @@ public class Request {
         });
         requestQueue.add(jsonObjectRequest);
     }
+
+    public void loginApi(String email, String password, final OnServerPostCallBack onServerCallBack) throws JSONException {
+        String url = "http://"+getIp()+"/elearning/public/api/login-api";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email",email);
+        jsonObject.put("password",password);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.has("status")){
+                        Log.d("loginerror","credential invalid");
+                        onServerCallBack.onSuccess("error");
+                    }else {
+//                        Auth.apiToken = response.getString("api_token");
+                        Auth.user.setId(response.getInt("id"));
+                        Auth.user.setEmail(response.getString("Email"));
+                        Auth.user.setPassword(response.getString("Password"));
+                        Auth.user.setNama(response.getString("Nama"));
+                        Auth.user.setRole(response.getString("role"));
+                        onServerCallBack.onSuccess("success");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onServerCallBack.onError();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
     public void getAllProblem(final FragmentQuestionLecturer.onServerCallBack serverCallBack){
         String url = "http://"+getIp()+"/elearning/public/api/problems";
 
@@ -330,6 +367,51 @@ public class Request {
                                     list.add(user);
                                 }
                                 serverCallBack.onSuccess(list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", String.valueOf(error));
+
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
+    public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack){
+        String url ="http://"+getIp()+"/elearning/public/api/students-api";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        list = new ArrayList<User>();
+                        String TAG = "nambah";
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("data");
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                User user = new User();
+                                user.setNama(jsonObject.getString("name"));
+                                user.setEmail(jsonObject.getString("email"));
+                                user.setPassword(jsonObject.getString("password"));
+                                user.setId(jsonObject.getInt("id"));
+                                list.add(user);
+                            }
+                            serverCallBack.onSuccess(list);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
             try {
-                request.login(email,password,this);
+                request.loginApi(email,password,this);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
