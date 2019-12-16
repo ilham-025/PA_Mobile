@@ -21,6 +21,7 @@ import com.example.pa.Model.Auth;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
 import com.example.pa.Model.User;
+import com.example.pa.StudentFinish;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -346,30 +347,35 @@ public class Request {
         };
         requestQueue.add(jsonObjectRequest);
     }
-    public void getAllStudent(final FragmentStudentLecturer.ServerCallBack serverCallBack){
-        String url ="http://"+getIp()+"/elearning/public/api/students";
+    public void getAllStudentFinish(final StudentFinish.ServerCallBack serverCallBack, int idProblem){
+        String url ="http://"+getIp()+"/elearning/public/api/answers?problem_id="+idProblem;
+        Log.d(String.valueOf(idProblem), "lolasdfas");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         list = new ArrayList<User>();
+                        ArrayList list2 = new ArrayList<Answer>();
                         String TAG = "nambah";
                         try {
                             JSONArray jsonArray = response.getJSONArray("data");
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     User user = new User();
+                                    Answer answer = new Answer();
                                     user.setNama(jsonObject.getString("name"));
                                     user.setEmail(jsonObject.getString("email"));
-                                    user.setPassword(jsonObject.getString("password"));
-                                    user.setId(jsonObject.getInt("id"));
+                                    answer.setId(jsonObject.getInt("id"));
                                     list.add(user);
+                                    list2.add(answer);
+                                    Log.d(TAG, "lolasdfas");
                                 }
                                 serverCallBack.onSuccess(list);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        Log.d(TAG, "lolasdfas");
                     }
                 }, new Response.ErrorListener() {
 
@@ -389,8 +395,8 @@ public class Request {
         };
 
         requestQueue.add(jsonObjectRequest);
-
     }
+
     public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack){
         String url ="http://"+getIp()+"/elearning/public/api/students-api";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -400,14 +406,15 @@ public class Request {
                     public void onResponse(JSONObject response) {
                         list = new ArrayList<User>();
                         String TAG = "nambah";
+                        Log.d(TAG,"masuuk");
                         try {
                             JSONArray jsonArray = response.getJSONArray("data");
                             for(int i = 0; i < jsonArray.length(); i++){
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 User user = new User();
-                                user.setNama(jsonObject.getString("name"));
-                                user.setEmail(jsonObject.getString("email"));
-                                user.setPassword(jsonObject.getString("password"));
+                                user.setNama(jsonObject.getString("Nama"));
+                                user.setEmail(jsonObject.getString("Email"));
+                                user.setPassword(jsonObject.getString("Password"));
                                 user.setId(jsonObject.getInt("id"));
                                 list.add(user);
                             }

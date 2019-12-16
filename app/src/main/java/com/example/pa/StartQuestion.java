@@ -36,9 +36,11 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_question);
+
         btnFinish = findViewById(R.id.btn_finish);
         edtJudul = findViewById(R.id.tv_judul_soal);
         lySoal = findViewById(R.id.ly_soal);
+
         request = new Request(this);
         request.getProblemNumber(getIntent().getIntExtra(EXTRA_PROBLEM_ID, 0), this);
 

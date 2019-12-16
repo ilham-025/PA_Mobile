@@ -88,7 +88,7 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
         }
         @Override
         protected Void doInBackground(Void... voids) {
-             request.getAllStudent(this);
+             request.getAllStudentApi(this);
              return null;
         }
         @Override

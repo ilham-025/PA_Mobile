@@ -59,11 +59,11 @@ public class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapte
 
         @Override
         public void onClick(View view) {
-            onQuestionListListener.onClick(getAdapterPosition(), problems.get(getAdapterPosition()), true);
+            onQuestionListListener.onClick(getAdapterPosition(), problems.get(getAdapterPosition()));
         }
     }
     public interface OnQuestionListListener{
-        void onClick(int position, Problem problem, boolean isEdit);
+        void onClick(int position, Problem problem);
 
     }
 }

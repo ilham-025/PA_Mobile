@@ -33,4 +33,7 @@
     <string name="log_out">Log Out</string>
     <string name="start_question">Kerjakan Soal</string>
     <string name="finish">Selesai</string>
+    <string name="periksa_soal">Periksa Soal</string>
+    <string name="nilai">Nilai</string>
+    <string name="simpan">simpan</string>
 </resources>

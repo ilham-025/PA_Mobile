@@ -62,8 +62,11 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
 
 
     @Override
-    public void onClick(int position, Problem problem, boolean isEdit) {
-
+    public void onClick(int position, Problem problem) {
+        Intent start = new Intent(getContext(), StudentFinish.class);
+        start.putExtra(StudentFinish.EXTRA_PROBLEM_ID, problem.getId());
+        start.putExtra(StudentFinish.EXTRA_PROBLEM, problem);
+        startActivity(start);
     }
     private class LoadProblemAsync extends AsyncTask<Void,Void, Void> implements onServerCallBack{
         @Override
