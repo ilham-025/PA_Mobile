@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.pa.Adapter.ListStudentAdapter;
+import com.example.pa.Model.Answer;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.User;
 import com.example.pa.Request.Request;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class StudentFinish extends AppCompatActivity implements ListStudentAdapter.OnStudentListListener {
     private RecyclerView rvStudent;
     private ArrayList<User> list;
+    private  ArrayList<Answer> answers;
     private ListStudentAdapter adapter;
     private Request request;
     private ProgressBar progressBar;
@@ -44,6 +46,7 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
 
         rvStudent.setLayoutManager(new LinearLayoutManager(this));
 
+        answers = new ArrayList<>();
         list = new ArrayList<>();
         request = new Request(this);
         adapter = new ListStudentAdapter(this);
@@ -67,6 +70,7 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
         start.putExtra(PeriksaSoal.EXTRA_PROBLEM, problem);
         start.putExtra(PeriksaSoal.EXTRA_USER_ID, user.getId());
         start.putExtra(PeriksaSoal.EXTRA_USER, user);
+        start.putExtra(PeriksaSoal.EXTRA_ANSWER_ID,answers.get(position).getId());
         startActivity(start);
     }
 
@@ -85,9 +89,10 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
             return null;
         }
         @Override
-        public void onSuccess(ArrayList<User> users) {
+        public void onSuccess(ArrayList<User> users, ArrayList<Answer> answerlist) {
             progressBar.setVisibility(View.GONE);
             list.addAll(users);
+            answers.addAll(answerlist);
             adapter.setListStudent(list);
             adapter.notifyDataSetChanged();
 
@@ -95,6 +100,6 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
     }
 
     public interface ServerCallBack{
-        void onSuccess(ArrayList<User> users);
+        void onSuccess(ArrayList<User> users, ArrayList<Answer> answers);
     }
 }

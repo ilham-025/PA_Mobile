@@ -56,8 +56,7 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveAdd = new Intent(getContext(), add_student.class);
-                startActivityForResult(moveAdd,add_student.REQUEST_ADD);
+                showSnackbarMessage("Tolong menambah lewat akademik");
             }
         });
     }

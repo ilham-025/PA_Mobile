@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +48,102 @@ public class Request {
     protected String ip ="192.168.137.1";
     public String getIp(){
         return this.ip;
+    }
+    public void nilai(int answer_id,int nilai, final NilaiCallBack nilaiCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/nilai";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("answer_id",answer_id);
+            jsonObject.put("nilai",nilai);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("message","masukkk");
+
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("message","masukkk");
+                    Log.d("message",response.getString("message"));
+                    nilaiCallBack.onSucces(response.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+
+        Log.d("message","masukkk");
+    }
+    public void CheckStudentAnswerNumber(int answer_id, int problem_id, final CheckProblemCallBack checkProblemCallBack){
+        String url = "http://"+getIp()+"/elearning/public/api/check-answer";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("problem_id",problem_id);
+            jsonObject.put("answer_id",answer_id);
+            JSONArray answer_number_array = new JSONArray();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    ArrayList<ProblemNumber> problemNumbers = new ArrayList<>();
+                    ArrayList<AnswerNumber> answerNumbers = new ArrayList<>();
+                    JSONArray listAnswerNumbers = response.getJSONArray("answer_numbers");
+                    JSONArray listProblemNumbers = response.getJSONArray("problem_numbers");
+                    for(int i=0;i<listAnswerNumbers.length();i++){
+                        JSONObject problemNumberJson = listProblemNumbers.getJSONObject(i);
+                        JSONObject answerNumberJson = listAnswerNumbers.getJSONObject(i);
+                        ProblemNumber problemNumber = new ProblemNumber();
+                        problemNumber.setId(problemNumberJson.getInt("id"));
+                        problemNumber.setProblem_id(problemNumberJson.getInt("problem_id"));
+                        problemNumber.setPertanyaan(problemNumberJson.getString("pertanyaan"));
+                        problemNumber.setJawaban(problemNumberJson.getString("jawaban"));
+                        problemNumbers.add(problemNumber);
+                        AnswerNumber answerNumber = new AnswerNumber();
+                        answerNumber.setId(answerNumberJson.getInt("id"));
+                        answerNumber.setAnswer_id(answerNumberJson.getInt("answer_id"));
+                        answerNumber.setText(answerNumberJson.getString("text"));
+                        answerNumbers.add(answerNumber);
+                    }
+                    Log.d("list answer",answerNumbers.toString());
+                    checkProblemCallBack.onSuccess(problemNumbers,answerNumbers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+Auth.apiToken);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
     public void addAnswer(Answer answer, ArrayList<AnswerNumber> answerNumbers, final AddProblemCallBack addProblemCallBack){
         String url = "http://"+getIp()+"/elearning/public/api/add-answers";
@@ -369,9 +466,9 @@ public class Request {
                                     answer.setId(jsonObject.getInt("id"));
                                     list.add(user);
                                     list2.add(answer);
-                                    Log.d(TAG, "lolasdfas");
+                                    Log.d("id", String.valueOf(jsonObject.getInt("id")));
                                 }
-                                serverCallBack.onSuccess(list);
+                                serverCallBack.onSuccess(list,list2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -653,5 +750,17 @@ public class Request {
     public interface AddProblemCallBack{
         void success(String Message);
         void error(String Message);
+    }
+    public interface CheckProblemCallBack{
+        void onSuccess(ArrayList<ProblemNumber> problemNumbers, ArrayList<AnswerNumber> answerNumbers);
+        void onError();
+    }
+    public interface NilaiCallBack{
+        void onSucces(String message);
+        void onError();
+    }
+    public interface AddQuestionCallBack{
+        void onSuccess(String message);
+        void onError();
     }
 }

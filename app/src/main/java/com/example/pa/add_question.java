@@ -2,7 +2,9 @@ package com.example.pa;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +18,14 @@ import android.widget.TimePicker;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
 import com.example.pa.Request.Request;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class add_question extends AppCompatActivity implements View.OnClickListener, Request.OnServerPostCallBack {
@@ -34,6 +38,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
     protected Button btnCreateSoal;
     protected EditText tglmulai, tglselesai, jammulai, jamselesai,edt_judul_soal;
     protected Request request;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_question);
@@ -51,6 +56,10 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 
         listEditTextJawaban = new ArrayList<EditText>();
         listEditTextPertanyaan = new ArrayList<EditText>();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            edt_judul_soal.setFocusedByDefault(true);
+        }
 
         myCalendar = Calendar.getInstance();
         date_start = new DatePickerDialog.OnDateSetListener() {
@@ -174,25 +183,35 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
             String startDate = tglmulai.getText().toString().trim();
             String endTime = jamselesai.getText().toString().trim();
             String endDate = tglselesai.getText().toString().trim();
-            Problem problem = new Problem();
-            problem.setStartTime(startTime);
-            problem.setTitle(title);
-            problem.setStartDate(startDate);
-            problem.setEndTime(endTime);
-            problem.setEndDate(endDate);
-            for(int i = 0 ;i<listEditTextJawaban.size();i++){
-                ProblemNumber problemNumber = new ProblemNumber();
-                problemNumber.setNumber(i);
-                problemNumber.setPertanyaan(listEditTextPertanyaan.get(i).getText().toString().trim());
-                problemNumber.setJawaban(listEditTextJawaban.get(i).getText().toString().trim());
-                listProblemNuber.add(problemNumber);
+            Boolean empty = true;
+            if(TextUtils.isEmpty(title) || TextUtils.isEmpty(startDate) ||TextUtils.isEmpty(endTime) ||TextUtils.isEmpty(endDate) ||TextUtils.isEmpty(startTime)){
+                empty=true;
+            }else{
+                empty=false;
             }
+            if(empty==false && listEditTextJawaban.size() >0 ) {
+                Problem problem = new Problem();
+                problem.setStartTime(startTime);
+                problem.setTitle(title);
+                problem.setStartDate(startDate);
+                problem.setEndTime(endTime);
+                problem.setEndDate(endDate);
+                for (int i = 0; i < listEditTextJawaban.size(); i++) {
+                    ProblemNumber problemNumber = new ProblemNumber();
+                    problemNumber.setNumber(i);
+                    problemNumber.setPertanyaan(listEditTextPertanyaan.get(i).getText().toString().trim());
+                    problemNumber.setJawaban(listEditTextJawaban.get(i).getText().toString().trim());
+                    listProblemNuber.add(problemNumber);
+                }
 //            Log.d("lol",problem.getStartTime());
 //            Log.d("lil",problem.getStartDate());
-            Log.d("lel",endTime);
+                Log.d("lel", endTime);
 //            Log.d("lal",problem.getEndDate());
 
-            request.addProblem(problem,listProblemNuber);
+                request.addProblem(problem, listProblemNuber);
+            }else{
+                showSnackbarMessage("tolong diisi semua fieldnya");
+            }
         }
     }
 
@@ -206,6 +225,9 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         tglselesai.setText(sdf.format(myCalendar.getTime()));
+    }
+    public void showSnackbarMessage(String message){
+        Snackbar.make(getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
     }
 
 

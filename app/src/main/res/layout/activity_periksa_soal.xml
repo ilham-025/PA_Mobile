@@ -58,7 +58,10 @@
                 android:id="@+id/edt_nilai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/nilai" />
+                android:inputType="number"
+                android:hint="@string/nilai">
+             <requestFocus/>
+            </EditText>
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
