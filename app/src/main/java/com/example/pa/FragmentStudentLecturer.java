@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 public class FragmentStudentLecturer extends Fragment {
     private FloatingActionButton btnAdd;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,5 +35,11 @@ public class FragmentStudentLecturer extends Fragment {
                 startActivity(moveAdd);
             }
         });
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 }
