@@ -12,7 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PeriksaSoal"></activity>
+        <activity android:name=".HomeClassLecturerActivity"/>
+        <activity android:name=".HomeClassStudentActivity" />
+        <activity
+            android:name=".BuatKelasActivity"
+            android:parentActivityName=".home_lecturer" />
+        <activity
+            android:name=".GabungKelasActivity"
+            android:parentActivityName=".home_student" />
+        <activity android:name=".PeriksaSoal" />
         <activity android:name=".StudentFinish" />
         <activity android:name=".StartQuestion" />
         <activity android:name=".home_student" />
@@ -26,7 +34,7 @@
         </activity>
         <activity
             android:name=".add_student"
-            android:parentActivityName=".home_lecturer">
+            android:parentActivityName=".HomeClassLecturerActivity">
 
             <!-- <meta-date -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
@@ -34,12 +42,16 @@
         </activity>
         <activity
             android:name=".add_question"
-            android:parentActivityName=".home_lecturer">
+            android:parentActivityName=".HomeClassLecturerActivity">
 
             <!-- <meta-date -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value=".home_lecturer" /> -->
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

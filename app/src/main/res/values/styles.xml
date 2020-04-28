@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryDark">#FF354ED8</item>
-        <item name="colorAccent">#2196F3</item>
+        <item name="colorPrimaryDark">#cff1ba</item>
+        <item name="colorAccent">#cff1ba</item>
     </style>
 </resources>

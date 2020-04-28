@@ -9,15 +9,15 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class home_lecturer extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeClassStudentActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_lecturer);
-        loadFragment(new HomeKelasFragment());
+        setContentView(R.layout.activity_home_class_student);
+        loadFragment(new FragmentHomeStudent());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main_lct);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main_std);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
@@ -25,7 +25,7 @@ public class home_lecturer extends AppCompatActivity implements BottomNavigation
 
     private boolean loadFragment(Fragment fragment) {
         if(fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container_lct, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container_std, fragment).commit();
             return true;
         }
         return false;
@@ -35,10 +35,13 @@ public class home_lecturer extends AppCompatActivity implements BottomNavigation
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
         switch (menuItem.getItemId()) {
-            case R.id.class_menu :
-                fragment = new HomeKelasFragment();
+            case R.id.home_menu_std :
+                fragment = new FragmentHomeStudent();
                 break;
-            case R.id.profile_menu :
+            case R.id.question_menu_std :
+                fragment = new FragmentQuestionStudent();
+                break;
+            case R.id.profile_menu_std :
                 fragment = new FragmentProfileStudent();
                 break;
         }

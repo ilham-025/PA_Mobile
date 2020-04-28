@@ -15,7 +15,7 @@ public class home_student extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_student);
-        loadFragment(new FragmentHomeStudent());
+        loadFragment(new HomeKelasFragment());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main_std);
 
@@ -35,13 +35,10 @@ public class home_student extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
         switch (menuItem.getItemId()) {
-            case R.id.home_menu_std :
-                fragment = new FragmentHomeStudent();
+            case R.id.class_menu :
+                fragment = new HomeKelasFragment();
                 break;
-            case R.id.question_menu_std :
-                fragment = new FragmentQuestionStudent();
-                break;
-            case R.id.profile_menu_std :
+            case R.id.profile_menu :
                 fragment = new FragmentProfileStudent();
                 break;
         }
