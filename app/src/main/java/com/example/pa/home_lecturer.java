@@ -39,7 +39,7 @@ public class home_lecturer extends AppCompatActivity implements BottomNavigation
                 fragment = new HomeKelasFragment();
                 break;
             case R.id.profile_menu :
-                fragment = new FragmentProfileStudent();
+                fragment = new FragmentProfileLecturer();
                 break;
         }
         return loadFragment(fragment);
