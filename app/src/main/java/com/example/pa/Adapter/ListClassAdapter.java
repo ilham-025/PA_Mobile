@@ -34,7 +34,7 @@ public class ListClassAdapter extends RecyclerView.Adapter<ListClassAdapter.CCla
     @Override
     public void onBindViewHolder(@NonNull CClasViewHolder holder, int position) {
         holder.name.setText(listCClass.get(position).getName());
-        holder.description.setText(listCClass.get(position).getName());
+        holder.description.setText(listCClass.get(position).getDescription());
     }
 
     @Override
