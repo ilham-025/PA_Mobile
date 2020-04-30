@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.pa.Model.CClass;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
 import com.example.pa.Request.Request;
@@ -38,6 +39,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
     protected Button btnCreateSoal;
     protected EditText tglmulai, tglselesai, jammulai, jamselesai,edt_judul_soal;
     protected Request request;
+    public static String CCLASS = "cclass";
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,6 +198,8 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
                 problem.setStartDate(startDate);
                 problem.setEndTime(endTime);
                 problem.setEndDate(endDate);
+                CClass cClass = getIntent().getParcelableExtra(add_question.CCLASS);
+                problem.setClass_id(cClass.getId());
                 for (int i = 0; i < listEditTextJawaban.size(); i++) {
                     ProblemNumber problemNumber = new ProblemNumber();
                     problemNumber.setNumber(i);
