@@ -81,6 +81,8 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
 
     @Override
     public void onClick(CClass cClass) {
-
+        Intent move = new Intent(getContext(),HomeClassLecturerActivity.class);
+        move.putExtra(HomeClassLecturerActivity.CCLASS,cClass);
+        startActivity(move);
     }
 }

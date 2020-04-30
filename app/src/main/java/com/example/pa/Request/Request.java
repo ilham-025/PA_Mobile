@@ -296,7 +296,7 @@ public class Request {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-
+                    onServerCallBack.onError();
                 }
             }
         }, new Response.ErrorListener() {
@@ -540,8 +540,8 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
 
     }
-    public void getAllAnnouncement(final FragmentHomeLecturer.onServerCallBack onServerCallBack){
-        String url = "http://"+getIp()+"/elearning/public/api/announcements";
+    public void getAllAnnouncement(final FragmentHomeLecturer.onServerCallBack onServerCallBack,int class_id){
+        String url = "http://"+getIp()+"/elearning/public/api/announcements?class_id="+class_id;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET,url,null,new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -555,6 +555,7 @@ public class Request {
                         announcement.setName(jsonObject.getString("name"));
                         announcement.setDate(jsonObject.getString("date"));
                         announcement.setText(jsonObject.getString("text"));
+                        announcement.setClass_id(jsonObject.getInt("class_id"));
                         announcements.add(announcement);
                     }
                     onServerCallBack.onSuccessLoad(announcements);
@@ -628,6 +629,7 @@ public class Request {
             announcementData.put("name",announcement.getName());
             announcementData.put("date",announcement.getDate());
             announcementData.put("text",announcement.getText());
+            announcementData.put("class_id",announcement.getClass_id());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -5,15 +5,25 @@ import android.os.Parcelable;
 
 public class Announcement implements Parcelable {
     private int id;
+    private int class_id;
     private String text;
     private String date;
     private String name;
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
+    }
 
     public Announcement(Parcel in) {
         id = in.readInt();
         text = in.readString();
         date = in.readString();
         name = in.readString();
+        class_id = in.readInt();
     }
 
     public static final Creator<Announcement> CREATOR = new Creator<Announcement>() {
@@ -75,5 +85,6 @@ public class Announcement implements Parcelable {
         dest.writeString(text);
         dest.writeString(date);
         dest.writeString(name);
+        dest.writeInt(class_id);
     }
 }

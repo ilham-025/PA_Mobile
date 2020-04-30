@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
 
     @Override
     public void onError() {
-
+        showSnackbarMessage("Please check YOur internet");
     }
 
     @Override

@@ -34,14 +34,14 @@ public class ClassViewModel extends ViewModel {
         this.context=context;
     }
     public void setListclass(RequestError requestError, User user){
-        String url = "http://"+ Auth.ip +"/elearning/public/api/classes-teacher";
+        String url = "http://"+ Auth.ip +"/elearning/public/api/classes-teacher?teacher_id="+user.getId();
         JSONObject userJSON = new JSONObject();
         try {
             userJSON.put("user_id",user.getId());
         }catch (Exception e){
             e.printStackTrace();
         }
-        JsonObjectRequest indexClassRequest = new JsonObjectRequest(Request.Method.GET, url, userJSON, new Response.Listener<JSONObject>() {
+        JsonObjectRequest indexClassRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 JSONArray jsonArray = null;

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.example.pa.Adapter.ListAnnouncementAdapter;
 import com.example.pa.Model.Announcement;
 import com.example.pa.Model.Auth;
+import com.example.pa.Model.CClass;
 import com.example.pa.Request.Request;
 
 import java.text.DateFormat;
@@ -120,7 +121,8 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
 
         @Override
         protected Void doInBackground(Void... voids) {
-            request.getAllAnnouncement(this);
+            CClass cClass = getActivity().getIntent().getParcelableExtra(HomeClassLecturerActivity.CCLASS);
+            request.getAllAnnouncement(this,cClass.getId());
             return null;
         }
 
