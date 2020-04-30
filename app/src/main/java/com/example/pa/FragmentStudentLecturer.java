@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.pa.Adapter.ListStudentAdapter;
+import com.example.pa.Model.CClass;
 import com.example.pa.Model.User;
 import com.example.pa.Request.Request;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -87,7 +88,8 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
         }
         @Override
         protected Void doInBackground(Void... voids) {
-             request.getAllStudentApi(this);
+            CClass cClass = getActivity().getIntent().getParcelableExtra(HomeClassLecturerActivity.CCLASS);
+             request.getAllStudentApi(this,cClass.getId());
              return null;
         }
         @Override

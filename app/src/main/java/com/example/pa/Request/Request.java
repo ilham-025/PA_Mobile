@@ -48,7 +48,7 @@ public class Request {
         requestQueue = Volley.newRequestQueue(context);
         requestSingelton = RequestSingelton.getInstance(context);
     }
-    protected String ip ="192.168.43.54";
+    protected String ip =Auth.ip;
     public String getIp(){
         return this.ip;
     }
@@ -312,8 +312,8 @@ public class Request {
     }
 
 
-    public void getAllProblem(final FragmentQuestionLecturer.onServerCallBack serverCallBack){
-        String url = "http://"+getIp()+"/elearning/public/api/problems";
+    public void getAllProblem(final FragmentQuestionLecturer.onServerCallBack serverCallBack,int class_id){
+        String url = "http://"+getIp()+"/elearning/public/api/problems?class_id="+class_id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -412,6 +412,7 @@ public class Request {
             jsonObject.put("start_date",problem.getStartDate());
             jsonObject.put("end_time",problem.getEndTime());
             jsonObject.put("end_date",problem.getEndDate());
+            jsonObject.put("class_id",problem.getClass_id());
             JSONArray problem_number_array = new JSONArray();
             for(int i=0;i<listProblemNumber.size();i++){
                 JSONObject problem_number_object = new JSONObject();
@@ -497,8 +498,8 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack){
-        String url ="http://"+getIp()+"/elearning/public/api/students-api";
+    public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack,int class_id){
+        String url ="http://"+getIp()+"/elearning/public/api/student-in-class?class_id="+class_id;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

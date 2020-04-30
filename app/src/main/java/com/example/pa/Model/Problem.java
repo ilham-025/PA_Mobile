@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 public class Problem implements Parcelable {
     private int id;
+    private int class_id;
 
     public String getTitle() {
         return title;
@@ -13,6 +14,14 @@ public class Problem implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
     }
 
     public static Creator<Problem> getCREATOR() {
@@ -32,6 +41,7 @@ public class Problem implements Parcelable {
         endTime = in.readString();
         endDate = in.readString();
         title = in.readString();
+        class_id = in.readInt();
     }
 
     public static final Creator<Problem> CREATOR = new Creator<Problem>() {
@@ -104,5 +114,6 @@ public class Problem implements Parcelable {
         dest.writeString(endTime);
         dest.writeString(endDate);
         dest.writeString(title);
+        dest.writeInt(class_id);
     }
 }

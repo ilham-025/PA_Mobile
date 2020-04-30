@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.pa.Adapter.ListQuestionAdapter;
+import com.example.pa.Model.CClass;
 import com.example.pa.Model.Problem;
 import com.example.pa.Request.Request;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +30,7 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
     private ListQuestionAdapter listQuestionAdapter;
     private ArrayList<Problem> problems;
     private ProgressBar progressBar;
+    private CClass cClass;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,10 +52,12 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         request = new Request(this.getContext());
+        cClass = getActivity().getIntent().getParcelableExtra(HomeClassLecturerActivity.CCLASS);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent move = new Intent(getContext(), add_question.class);
+                move.putExtra(add_question.CCLASS,cClass);
                 startActivity(move);
             }
         });
@@ -80,7 +84,7 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
 
         @Override
         protected Void doInBackground(Void... voids) {
-            request.getAllProblem(this);
+            request.getAllProblem(this,cClass.getId());
             return null;
         }
 
