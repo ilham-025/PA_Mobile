@@ -7,9 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.pa.Model.CClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeClassStudentActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public static String CCLASS = "cclass";
+
+    private CClass cClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +25,10 @@ public class HomeClassStudentActivity extends AppCompatActivity implements Botto
         BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main_std);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        if(getIntent().getParcelableExtra(CCLASS)!=null){
+            cClass = getIntent().getParcelableExtra(CCLASS);
+        }
     }
 
 

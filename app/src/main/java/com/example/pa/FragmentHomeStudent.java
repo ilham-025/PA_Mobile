@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa.Adapter.ListAnnouncementAdapter;
 import com.example.pa.Model.Announcement;
+import com.example.pa.Model.CClass;
 import com.example.pa.Request.Request;
 
 import java.text.DateFormat;
@@ -57,7 +58,7 @@ public class FragmentHomeStudent extends Fragment{
     public interface onServerCallBack{
         void onSuccessLoad(ArrayList<Announcement> announcements);
     }
-    public class LoadAnnouncementAsync extends AsyncTask<Void,Void,Void> implements FragmentHomeStudent.onServerCallBack {
+    public class LoadAnnouncementAsync extends AsyncTask<Void,Void,Void> implements onServerCallBack, FragmentHomeLecturer.onServerCallBack {
 
         @Override
         protected void onPreExecute() {
@@ -70,7 +71,8 @@ public class FragmentHomeStudent extends Fragment{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            request.getAllAnnouncement(this);
+            CClass cClass = getActivity().getIntent().getParcelableExtra(HomeClassLecturerActivity.CCLASS);
+            request.getAllAnnouncement(this,cClass.getId());
             return null;
         }
 
@@ -81,6 +83,11 @@ public class FragmentHomeStudent extends Fragment{
             Log.d("test","masuk");
             listAnnouncementAdapter.setListAnnouncement(list);
             listAnnouncementAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onSuccesAdd() {
+
         }
     }
 }

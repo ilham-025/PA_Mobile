@@ -34,48 +34,93 @@ public class ClassViewModel extends ViewModel {
         this.context=context;
     }
     public void setListclass(RequestError requestError, User user){
-        String url = "http://"+ Auth.ip +"/elearning/public/api/classes-teacher?teacher_id="+user.getId();
-        JSONObject userJSON = new JSONObject();
-        try {
-            userJSON.put("user_id",user.getId());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        JsonObjectRequest indexClassRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                JSONArray jsonArray = null;
-                try {
-                    ArrayList<CClass> listItem = new ArrayList<>();
-                    jsonArray = response.getJSONArray("data");
-                    for(int i = 0; i < jsonArray.length(); i++){
-                        JSONObject cClassJsonObject = jsonArray.getJSONObject(i);
-                        CClass cClass = setToObject(cClassJsonObject);
-                        listItem.add(cClass);
+        if (user.getRole().equals("teacher")) {
+            String url = "http://"+ Auth.ip +"/elearning/public/api/classes-teacher?teacher_id="+user.getId();
+            JSONObject userJSON = new JSONObject();
+            try {
+                userJSON.put("user_id",user.getId());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            JsonObjectRequest indexClassRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    JSONArray jsonArray = null;
+                    try {
+                        ArrayList<CClass> listItem = new ArrayList<>();
+                        jsonArray = response.getJSONArray("data");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject cClassJsonObject = jsonArray.getJSONObject(i);
+                            CClass cClass = setToObject(cClassJsonObject);
+                            listItem.add(cClass);
+                        }
+                        listclass.postValue(listItem);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    listclass.postValue(listItem);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+
                 }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<>();
+                    params.put("Content-Type", "application/json; charset=UTF-8");
+                    params.put("Authorization", "Bearer "+Auth.apiToken);
+                    return params;
+                }
+            };
+            RequestSingelton.getInstance(context).getRequestQueue().add(indexClassRequest);
+        } else {
+            String url = "http://"+ Auth.ip +"/elearning/public/api/classes-student?user_id="+user.getId();
+            JSONObject userJSON = new JSONObject();
+            try {
+                userJSON.put("user_id",user.getId());
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            JsonObjectRequest indexClassRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    JSONArray jsonArray = null;
+                    try {
+                        ArrayList<CClass> listItem = new ArrayList<>();
+                        jsonArray = response.getJSONArray("data");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject cClassJsonObject = jsonArray.getJSONObject(i);
+                            CClass cClass = setToObject(cClassJsonObject);
+                            listItem.add(cClass);
+                        }
+                        listclass.postValue(listItem);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("Content-Type", "application/json; charset=UTF-8");
-                params.put("Authorization", "Bearer "+Auth.apiToken);
-                return params;
-            }
-        };
 
-        RequestSingelton.getInstance(context).getRequestQueue().add(indexClassRequest);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<>();
+                    params.put("Content-Type", "application/json; charset=UTF-8");
+                    params.put("Authorization", "Bearer "+Auth.apiToken);
+                    return params;
+                }
+            };
+            RequestSingelton.getInstance(context).getRequestQueue().add(indexClassRequest);
+        }
+
+
     }
 
     public LiveData<ArrayList<CClass>> getListCClass(){

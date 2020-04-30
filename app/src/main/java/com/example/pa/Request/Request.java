@@ -48,7 +48,7 @@ public class Request {
         requestQueue = Volley.newRequestQueue(context);
         requestSingelton = RequestSingelton.getInstance(context);
     }
-    protected String ip ="192.168.137.1";
+    protected String ip ="192.168.43.54";
     public String getIp(){
         return this.ip;
     }
