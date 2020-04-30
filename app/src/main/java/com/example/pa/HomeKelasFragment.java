@@ -90,4 +90,11 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
         move.putExtra(HomeClassLecturerActivity.CCLASS,cClass);
         startActivity(move);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("resume","Resumed");
+        classViewModel.setListclass(this,Auth.user);
+    }
 }

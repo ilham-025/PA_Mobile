@@ -743,8 +743,8 @@ public class Request {
 
     }
 
-    public void addClass(CClass cClass, final AddAnnouncementCallBack addAnnouncementCallBack) {
-        String url = "http://" + getIp() + "/elearning/public/api/add-announcement";
+    public void addClass(CClass cClass, final AddClasstCallBack addClasstCallBack){
+        String url = "http://" + getIp() + "/elearning/public/api/add-class";
         JSONObject classData = new JSONObject();
         try {
             classData.put("name", cClass.getName());
@@ -759,7 +759,7 @@ public class Request {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, classData, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                addAnnouncementCallBack.onSuccessAdd();
+                addClasstCallBack.onSuccessAdd();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -782,7 +782,10 @@ public class Request {
         public void onSuccessAdd();
         public void onErrorAdd();
     }
-
+    public interface AddClasstCallBack{
+        public void onSuccessAdd();
+        public void onErrorAdd();
+    }
     public interface OnServerPostCallBack {
         public void onSuccess(String message);
         public void onError();
