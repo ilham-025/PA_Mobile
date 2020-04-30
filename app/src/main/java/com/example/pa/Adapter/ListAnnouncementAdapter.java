@@ -1,5 +1,6 @@
 package com.example.pa.Adapter;
 
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class ListAnnouncementAdapter extends RecyclerView.Adapter<ListAnnounceme
         announcement = announcements.get(position);
         holder.tvName.setText(announcement.getName());
         holder.tvDate.setText(announcement.getDate());
+        holder.tvAnnoucement.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvAnnoucement.setText(announcement.getText());
     }
 

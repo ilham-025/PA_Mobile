@@ -48,7 +48,7 @@ public class Request {
         requestQueue = Volley.newRequestQueue(context);
         requestSingelton = RequestSingelton.getInstance(context);
     }
-    protected String ip ="192.168.137.1";
+    protected String ip =Auth.ip;
     public String getIp(){
         return this.ip;
     }
@@ -498,8 +498,8 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack){
-        String url ="http://"+getIp()+"/elearning/public/api/students-api";
+    public void getAllStudentApi(final FragmentStudentLecturer.ServerCallBack serverCallBack,int class_id){
+        String url ="http://"+getIp()+"/elearning/public/api/student-in-class?class_id="+class_id;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
