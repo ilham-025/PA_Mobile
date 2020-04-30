@@ -7,16 +7,16 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
-# Resolve links: $0 may be a link
+# Resolve links: $0 may be a com.example.pa.link
 PRG="$0"
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$link" : '/.*' > /dev/null; then
-        PRG="$link"
+    com.example.pa.link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$com.example.pa.link" : '/.*' > /dev/null; then
+        PRG="$com.example.pa.link"
     else
-        PRG=`dirname "$PRG"`"/$link"
+        PRG=`dirname "$PRG"`"/$com.example.pa.link"
     fi
 done
 SAVED="`pwd`"
