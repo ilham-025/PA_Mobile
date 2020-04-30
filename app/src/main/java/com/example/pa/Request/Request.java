@@ -18,10 +18,12 @@ import com.example.pa.Model.Announcement;
 import com.example.pa.Model.Answer;
 import com.example.pa.Model.AnswerNumber;
 import com.example.pa.Model.Auth;
+import com.example.pa.Model.CClass;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
 import com.example.pa.Model.User;
 import com.example.pa.StudentFinish;
+import com.example.pa.singelton.RequestSingelton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,12 +40,13 @@ public class Request {
     protected User user;
     protected static String message;
     protected ArrayList<User> list;
+    private RequestSingelton requestSingelton;
     ArrayList<Announcement> announcements;
 
     public Request(Context context){
         this.context = context;
         requestQueue = Volley.newRequestQueue(context);
-
+        requestSingelton = RequestSingelton.getInstance(context);
     }
     protected String ip ="192.168.137.1";
     public String getIp(){
@@ -739,6 +742,47 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
 
     }
+
+    public void addClass(CClass cClass, final AddAnnouncementCallBack addAnnouncementCallBack) {
+        String url = "http://" + getIp() + "/elearning/public/api/add-announcement";
+        JSONObject classData = new JSONObject();
+        try {
+            classData.put("name", cClass.getName());
+            classData.put("code", cClass.getCode());
+            classData.put("description", cClass.getDescription());
+            classData.put("teacher_id", cClass.getTeacher_id());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, classData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                addAnnouncementCallBack.onSuccessAdd();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("menambah announcemnt", "error Menambah");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + Auth.apiToken);
+                return params;
+            }
+        };
+        requestSingelton.getRequestQueue().add(jsonObjectRequest);
+    }
+
+    public interface AddAnnouncementCallBack{
+        public void onSuccessAdd();
+        public void onErrorAdd();
+    }
+
     public interface OnServerPostCallBack {
         public void onSuccess(String message);
         public void onError();

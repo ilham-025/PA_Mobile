@@ -71,7 +71,7 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
             @Override
             public void onChanged(ArrayList<CClass> cClasses) {
 
-//                Log.d("isi kelas",cClasses.get(0).getName());
+                Log.d("isi kelas","ada");
                 listClassAdapter.setListCClass(cClasses);
                 listClassAdapter.notifyDataSetChanged();
                 pgListClass.setVisibility(View.GONE);
