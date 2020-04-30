@@ -1,5 +1,6 @@
 package com.example.pa.Adapter;
 
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,10 @@ public class ListAnnouncementAdapter extends RecyclerView.Adapter<ListAnnounceme
         announcement = announcements.get(position);
         holder.tvName.setText(announcement.getName());
         holder.tvDate.setText(announcement.getDate());
-        holder.tvAnnoucement.setMovementMethod(LinkMovementMethod.getInstance());
+//        if(announcement.getText().contains("http://")||announcement.getText().contains("https://")||announcement.getText().contains(".com")||announcement.getText().contains(".id")){
+//            announcement.setText(Html.fromHtml("<a href='"+announcement.getText()+"'>Android-Examples.com</a>"));
+//        }
+//        holder.tvAnnoucement.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvAnnoucement.setText(announcement.getText());
     }
 
