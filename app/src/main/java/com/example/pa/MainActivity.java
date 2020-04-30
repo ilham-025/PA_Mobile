@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
 
     @Override
     public void onSuccess(String message) {
+        userHelper.open();
         Intent move;
         if(message.equals("success")){
             long cek = userHelper.insert(Auth.user);

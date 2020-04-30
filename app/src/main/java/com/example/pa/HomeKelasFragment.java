@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
     private ListClassAdapter listClassAdapter;
     private ClassViewModel classViewModel;
     private RecyclerView recyclerView;
+    private ProgressBar pgListClass;
     private ArrayList<CClass> listCClass = new ArrayList<>();
 
     @Override
@@ -38,6 +40,7 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
         View view = inflater.inflate(R.layout.fragment_home_kelas, container, false);
         btnAddClass = view.findViewById(R.id.btn_add_class);
         recyclerView = view.findViewById(R.id.rv_class_list);
+        pgListClass = view.findViewById(R.id.pg_list_class);
         return view;
     }
 
@@ -67,9 +70,11 @@ public class HomeKelasFragment extends Fragment implements RequestError, ListCla
         classViewModel.getListCClass().observe(this, new Observer<ArrayList<CClass>>() {
             @Override
             public void onChanged(ArrayList<CClass> cClasses) {
+
 //                Log.d("isi kelas",cClasses.get(0).getName());
                 listClassAdapter.setListCClass(cClasses);
                 listClassAdapter.notifyDataSetChanged();
+                pgListClass.setVisibility(View.GONE);
             }
         });
     }

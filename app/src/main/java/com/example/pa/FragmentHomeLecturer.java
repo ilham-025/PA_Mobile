@@ -70,6 +70,8 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
                 announcement.setName(Auth.user.getNama());
                 announcement.setText(text);
                 announcement.setDate(getCurrentDate());
+                CClass cClass = getActivity().getIntent().getParcelableExtra(HomeClassLecturerActivity.CCLASS);
+                announcement.setClass_id(cClass.getId());
 
                 new AddAnnouncementAsync(announcement).execute();
             }else{
