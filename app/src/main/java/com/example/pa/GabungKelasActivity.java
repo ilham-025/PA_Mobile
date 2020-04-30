@@ -25,9 +25,12 @@ import com.example.pa.Adapter.ListClassAdapter;
 import com.example.pa.Adapter.ListFindClassAdapter;
 import com.example.pa.Model.Auth;
 import com.example.pa.Model.CClass;
+import com.example.pa.Model.MClass;
+import com.example.pa.Request.Request;
 import com.example.pa.viewmodel.ClassViewModel;
 import com.example.pa.viewmodel.FindClassViewModel;
 import com.example.pa.viewmodel.RequestError;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,7 +39,7 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GabungKelasActivity extends AppCompatActivity implements RequestError, ListFindClassAdapter.ListFindClassListener {
+public class GabungKelasActivity extends AppCompatActivity implements RequestError, ListFindClassAdapter.ListFindClassListener, Request.JoinClassCallBack {
 
     EditText edtSearch;
     private ListFindClassAdapter listClassAdapter;
@@ -44,7 +47,7 @@ public class GabungKelasActivity extends AppCompatActivity implements RequestErr
     private RecyclerView recyclerView;
     private ProgressBar pgListClass;
     private ArrayList<CClass> listCClass = new ArrayList<>();
-
+    Request.JoinClassCallBack joinClassCallBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,7 @@ public class GabungKelasActivity extends AppCompatActivity implements RequestErr
         edtSearch = findViewById(R.id.class_code);
         recyclerView = findViewById(R.id.rv_class_list);
         pgListClass = findViewById(R.id.pg_list_class);
-
-
+        joinClassCallBack = this;
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -76,7 +78,11 @@ public class GabungKelasActivity extends AppCompatActivity implements RequestErr
 
     @Override
     public void onClick(CClass cClass) {
-
+        MClass mClass = new MClass();
+        mClass.setClass_id(cClass.getId());
+        mClass.setUser_id(Auth.user.getId());
+        mClass.setCode(cClass.getCode());
+        new Request(getApplicationContext()).joinClass(mClass,joinClassCallBack);
     }
 
     @Override
@@ -105,5 +111,22 @@ public class GabungKelasActivity extends AppCompatActivity implements RequestErr
             }
         });
 
+    }
+
+    public void showSnackbarMessage(String message){
+        try {
+            Snackbar.make(getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
+        }catch (Exception $e){
+
+        }
+    }
+
+    @Override
+    public void onSuccessAdd() { showSnackbarMessage("Anda Tergabung Dengan Kelas");
+    }
+
+    @Override
+    public void onErrorAdd() {
+        showSnackbarMessage("Gagal Tergabung Dengan Kelas");
     }
 }

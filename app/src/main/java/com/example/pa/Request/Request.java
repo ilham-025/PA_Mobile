@@ -19,6 +19,7 @@ import com.example.pa.Model.Answer;
 import com.example.pa.Model.AnswerNumber;
 import com.example.pa.Model.Auth;
 import com.example.pa.Model.CClass;
+import com.example.pa.Model.MClass;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
 import com.example.pa.Model.User;
@@ -779,11 +780,50 @@ public class Request {
         requestSingelton.getRequestQueue().add(jsonObjectRequest);
     }
 
+    public void joinClass(MClass mClass, final JoinClassCallBack joinClassCallBack){
+        String url = "http://" + getIp() + "/elearning/public/api/join-class";
+        JSONObject classData = new JSONObject();
+        try {
+            classData.put("class_id", mClass.getClass_id());
+            classData.put("user_id", mClass.getUser_id());
+            classData.put("code", mClass.getCode());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            joinClassCallBack.onErrorAdd();
+        }
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, url, classData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                joinClassCallBack.onSuccessAdd();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("menambah member kelas", "error Menambah");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + Auth.apiToken);
+                return params;
+            }
+        };
+        requestSingelton.getRequestQueue().add(jsonObjectRequest);
+    }
+
     public interface AddAnnouncementCallBack{
         public void onSuccessAdd();
         public void onErrorAdd();
     }
     public interface AddClasstCallBack{
+        public void onSuccessAdd();
+        public void onErrorAdd();
+    }
+    public interface JoinClassCallBack{
         public void onSuccessAdd();
         public void onErrorAdd();
     }

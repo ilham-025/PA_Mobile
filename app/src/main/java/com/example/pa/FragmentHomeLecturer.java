@@ -1,5 +1,6 @@
 package com.example.pa;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -74,8 +76,12 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
                 announcement.setClass_id(cClass.getId());
 
                 new AddAnnouncementAsync(announcement).execute();
+                edtAnnouncemnet.setText("");
+
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(btnAddAnnouncement.getWindowToken(), 0);
             }else{
-                edtAnnouncemnet.setError("HArus di isi la");
+                edtAnnouncemnet.setError("Kosong");
             }
         }
     }

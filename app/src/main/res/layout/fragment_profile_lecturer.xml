@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
         android:text="@string/log_out"
+        android:fontFamily="@font/rakkas"
         android:layout_marginTop="100dp"
         android:textColor="@android:color/white"/>
 </LinearLayout>

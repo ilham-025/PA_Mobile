@@ -43,13 +43,16 @@ public class BuatKelasActivity extends AppCompatActivity implements Request.AddC
                     cClass.setCode(code);
                     cClass.setTeacher_id(Auth.user.getId());
                     new Request(getApplicationContext()).addClass(cClass,addClasstCallBack);
+                    edtCode.setText("");
+                    edtDescription.setText("");
+                    edtName.setText("");
                 }
             }
         });
     }
     public void showSnackbarMessage(String message){
         try {
-            Snackbar.make(getParent().getCurrentFocus(),message,Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
         }catch (Exception $e){
 
         }

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
             startActivity(move);
             finish();
         }else{
-            showSnackbarMessage("credential error");
+            showSnackbarMessage("Check Your E-Mail or Password");
         }
 
     }

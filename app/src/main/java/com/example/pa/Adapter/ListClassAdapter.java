@@ -1,5 +1,6 @@
 package com.example.pa.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class ListClassAdapter extends RecyclerView.Adapter<ListClassAdapter.CCla
     public void onBindViewHolder(@NonNull CClasViewHolder holder, int position) {
         holder.name.setText(listCClass.get(position).getName());
         holder.description.setText(listCClass.get(position).getDescription());
+        holder.classCode.setText("(Kode Kelas : "+listCClass.get(position).getCode()+")");
     }
 
     @Override
@@ -46,11 +48,13 @@ public class ListClassAdapter extends RecyclerView.Adapter<ListClassAdapter.CCla
 
         TextView name;
         TextView description;
+        TextView classCode;
 
         public CClasViewHolder(@NonNull View itemView,ListClassListener listClassListener) {
             super(itemView);
             name = itemView.findViewById(R.id.class_name);
             description = itemView.findViewById(R.id.description);
+            classCode = itemView.findViewById(R.id.code_class);
             itemView.setOnClickListener(this);
         }
 

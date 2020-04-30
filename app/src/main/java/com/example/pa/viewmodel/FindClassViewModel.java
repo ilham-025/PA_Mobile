@@ -81,6 +81,7 @@ public class FindClassViewModel extends ViewModel {
             cClass.setId(cClassJsonObject.getInt("id"));
             cClass.setName(cClassJsonObject.getString("name"));
             cClass.setDescription(cClassJsonObject.getString("description"));
+            cClass.setCode(cClassJsonObject.getString("code"));
             cClass.setTeacher_id(cClassJsonObject.getInt("teacher_id"));
         } catch (JSONException e) {
             e.printStackTrace();

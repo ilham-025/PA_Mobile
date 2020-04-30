@@ -93,7 +93,7 @@ public class ClassViewModel extends ViewModel {
                         jsonArray = response.getJSONArray("data");
                         for(int i = 0; i < jsonArray.length(); i++){
                             JSONObject cClassJsonObject = jsonArray.getJSONObject(i);
-                            CClass cClass = setToObject(cClassJsonObject);
+                            CClass cClass = setToObject2(cClassJsonObject);
                             listItem.add(cClass);
                         }
                         listclass.postValue(listItem);
@@ -132,7 +132,21 @@ public class ClassViewModel extends ViewModel {
             cClass.setId(cClassJsonObject.getInt("id"));
             cClass.setName(cClassJsonObject.getString("name"));
             cClass.setDescription(cClassJsonObject.getString("description"));
+            cClass.setCode(cClassJsonObject.getString("code"));
             cClass.setTeacher_id(cClassJsonObject.getInt("teacher_id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cClass;
+    }
+
+    private CClass setToObject2(JSONObject cClassJsonObject){
+        CClass cClass = new CClass();
+        try {
+            cClass.setId(cClassJsonObject.getInt("id"));
+            cClass.setName(cClassJsonObject.getString("name"));
+            cClass.setDescription(cClassJsonObject.getString("description"));
+            cClass.setCode(cClassJsonObject.getString("code"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

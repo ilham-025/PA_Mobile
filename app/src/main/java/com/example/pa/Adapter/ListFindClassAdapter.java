@@ -36,6 +36,7 @@ public class ListFindClassAdapter extends RecyclerView.Adapter<ListFindClassAdap
     public void onBindViewHolder(@NonNull CClasViewHolder holder, int position) {
         holder.name.setText(listCClass.get(position).getName());
         holder.description.setText(listCClass.get(position).getDescription());
+        holder.classCode.setText("(Kode Kelas : "+listCClass.get(position).getCode()+")");
     }
 
     @Override
@@ -47,6 +48,7 @@ public class ListFindClassAdapter extends RecyclerView.Adapter<ListFindClassAdap
 
         TextView name;
         TextView description;
+        TextView classCode;
         Button btnJoin;
 
         public CClasViewHolder(@NonNull View itemView,ListFindClassListener listClassListener) {
@@ -54,6 +56,7 @@ public class ListFindClassAdapter extends RecyclerView.Adapter<ListFindClassAdap
             name = itemView.findViewById(R.id.class_name);
             description = itemView.findViewById(R.id.description);
             btnJoin = itemView.findViewById(R.id.btn_join);
+            classCode = itemView.findViewById(R.id.code_class);
             btnJoin.setOnClickListener(this);
         }
 
