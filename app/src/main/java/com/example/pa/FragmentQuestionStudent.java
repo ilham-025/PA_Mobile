@@ -87,6 +87,13 @@ public class FragmentQuestionStudent extends Fragment implements ListQuestionRea
             listQuestionReadyAdapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new LoadProblemAsync().execute();
+    }
+
     public interface onServerCallBack{
         void onSuccessLoad(ArrayList<Problem> problem);
     }
