@@ -358,8 +358,8 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getAllProblem(final FragmentQuestionStudent.onServerCallBack onServerCallBack){
-        String url = "http://"+getIp()+"/elearning/public/api/problems-ready";
+    public void getAllProblem(final FragmentQuestionStudent.onServerCallBack onServerCallBack,int class_id){
+        String url = "http://"+getIp()+"/elearning/public/api/problems-ready?class_id="+class_id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa.Adapter.ListQuestionReadyAdapter;
+import com.example.pa.Model.CClass;
 import com.example.pa.Model.Problem;
 import com.example.pa.Request.Request;
 
@@ -71,7 +72,9 @@ public class FragmentQuestionStudent extends Fragment implements ListQuestionRea
 
         @Override
         protected Void doInBackground(Void... voids) {
-            request.getAllProblem(this);
+            CClass cClass = getActivity().getIntent().getParcelableExtra(HomeClassStudentActivity.CCLASS);
+            request.getAllProblem(this,cClass.getId());
+            Log.d("id kelas",String.valueOf(cClass.getId()));
             return null;
         }
 
