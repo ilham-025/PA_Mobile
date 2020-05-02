@@ -70,11 +70,11 @@ public class FragmentStudentLecturer extends Fragment implements ListStudentAdap
 
     @Override
     public void onClick(int position, User user, boolean isEdit) {
-        Intent moveIntent = new Intent(this.getActivity(),add_student.class);
-        moveIntent.putExtra(add_student.EXTRA_STUDENT, user);
-        moveIntent.putExtra(add_student.EXTRA_POSITION,position);
-        moveIntent.putExtra(add_student.EXTRA_ISEDIT,isEdit);
-        startActivityForResult(moveIntent,add_student.REQUEST_UPDATE);
+//        Intent moveIntent = new Intent(this.getActivity(),add_student.class);
+//        moveIntent.putExtra(add_student.EXTRA_STUDENT, user);
+//        moveIntent.putExtra(add_student.EXTRA_POSITION,position);
+//        moveIntent.putExtra(add_student.EXTRA_ISEDIT,isEdit);
+//        startActivityForResult(moveIntent,add_student.REQUEST_UPDATE);
     }
 
     private class LoadStudentAsync extends AsyncTask<Void,Void,Void> implements ServerCallBack{

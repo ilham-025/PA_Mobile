@@ -66,6 +66,73 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:padding="24dp"
+        android:background="@drawable/background6"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rakkas"
+            android:text="@string/class_code"
+            android:textColor="#016316"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edt_class_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/rakkas"
+            android:text="@string/class_name"
+            android:textColor="#016316"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edt_class_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_class_black_24dp"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/rakkas"
+            android:text="@string/description"
+            android:textColor="#016316"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edt_description_class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_description_black_24dp"
+            android:inputType="text|textMultiLine" />
+    </LinearLayout>
+
     <TextView
         android:textSize="30sp"
         android:textColor="#016316"
@@ -79,91 +146,20 @@
         app:layout_constraintBottom_toBottomOf="@+id/view2"
         app:layout_constraintStart_toStartOf="@+id/view2"/>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/rakkas"
-        android:text="@string/class_code"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-    <EditText
-        android:id="@+id/edt_class_code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:inputType="text"
-        android:fontFamily="@font/rakkas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/rakkas"
-        android:text="@string/class_name"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_class_code" />
-
-    <EditText
-        android:id="@+id/edt_class_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:inputType="text"
-        android:fontFamily="@font/rakkas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/rakkas"
-        android:text="@string/description"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_class_name" />
-
-    <EditText
-        android:id="@+id/edt_description_class"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textMultiLine"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/rakkas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
         android:id="@+id/btn_add_class"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/rakkas"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
+        android:fontFamily="@font/rakkas"
         android:text="@string/create_class"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_description_class" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

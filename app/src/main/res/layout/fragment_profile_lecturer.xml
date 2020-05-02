@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="55dp"
+    android:background="@android:color/white"
     android:layout_marginBottom="50dp"
     android:padding="20dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_item_photo_lecturer"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        tools:src="@android:color/darker_gray"
+        tools:src="@tools:sample/avatars"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"/>
@@ -20,14 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="25dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
         android:textAlignment="center"
         android:text="@string/name"/>
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
         android:textAlignment="center"
         android:text="@string/name"/>
     <Button

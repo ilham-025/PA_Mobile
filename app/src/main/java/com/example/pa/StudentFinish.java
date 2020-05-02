@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ import com.example.pa.Request.Request;
 
 import java.util.ArrayList;
 
-public class StudentFinish extends AppCompatActivity implements ListStudentAdapter.OnStudentListListener {
+public class StudentFinish extends AppCompatActivity implements View.OnClickListener, ListStudentAdapter.OnStudentListListener {
     private RecyclerView rvStudent;
     private ArrayList<User> list;
     private  ArrayList<Answer> answers;
@@ -31,7 +32,7 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
     private LoadStudentAsync loadStudentAsync;
     Problem problem;
     TextView tvJudul;
-
+    ImageButton btnBack;
     public static String EXTRA_PROBLEM_ID = "extra_problem_id";
     public static String EXTRA_PROBLEM = "extra_problem";
 
@@ -43,6 +44,8 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
         rvStudent = findViewById(R.id.rv_students);
         progressBar = findViewById(R.id.progressbar);
         tvJudul = findViewById(R.id.tv_judul_soal);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(this);
 
         rvStudent.setLayoutManager(new LinearLayoutManager(this));
 
@@ -72,6 +75,13 @@ public class StudentFinish extends AppCompatActivity implements ListStudentAdapt
         start.putExtra(PeriksaSoal.EXTRA_USER, user);
         start.putExtra(PeriksaSoal.EXTRA_ANSWER_ID,answers.get(position).getId());
         startActivity(start);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_back) {
+            finish();
+        }
     }
 
     private class LoadStudentAsync extends AsyncTask<Void,Void,Void> implements ServerCallBack {

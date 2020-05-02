@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".StartQuestion">
@@ -14,15 +15,24 @@
         android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
         <TextView
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/rakkas"
             android:text="@string/start_question"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textColor="#016316"
+            android:textSize="20sp" />
+
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
@@ -30,20 +40,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_judul_soal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/judul"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
                 android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:textColor="@android:color/black"
+                android:textSize="20sp"/>
             <LinearLayout
                 android:id="@+id/ly_soal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/background3"
                 android:orientation="vertical">
 
             </LinearLayout>
@@ -52,6 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/finish"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/rakkas"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button_background"/>

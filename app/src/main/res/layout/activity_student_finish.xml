@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".StudentFinish">
@@ -14,15 +15,23 @@
         android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
         <TextView
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/periksa_soal"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:fontFamily="@font/rakkas"
+            android:textAlignment="center"
+            android:textColor="#016316"
             android:textSize="20sp"
-            android:textAlignment="center"/>
+            android:text="@string/periksa_soal" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"

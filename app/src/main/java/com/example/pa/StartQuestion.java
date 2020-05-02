@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
     Button btnFinish;
     ArrayList<EditText> listEditTextAnswers;
     Problem problem;
-
+    ImageButton btnBack;
     public static String EXTRA_PROBLEM_ID = "extra_problem_id";
     public static String EXTRA_PROBLEM = "extra_problem";
     @Override
@@ -40,6 +41,8 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
         btnFinish = findViewById(R.id.btn_finish);
         edtJudul = findViewById(R.id.tv_judul_soal);
         lySoal = findViewById(R.id.ly_soal);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(this);
 
         request = new Request(this);
         request.getProblemNumber(getIntent().getIntExtra(EXTRA_PROBLEM_ID, 0), this);
@@ -104,6 +107,8 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
                 listAnswerNumber.add(answerNumber);
             }
             request.addAnswer(answer,listAnswerNumber,this);
+        } else if (v.getId() == R.id.btn_back) {
+            finish();
         }
     }
     public void showSnackbarMessage(String message){

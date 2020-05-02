@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
     Button btnSave;
     Problem problem;
     User user;
+    ImageButton btnBack;
 
     public static String EXTRA_ANSWER_ID = "extra_answer_id";
     public static String EXTRA_PROBLEM_ID = "extra_problem_id";
@@ -45,6 +47,8 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
         edtName = findViewById(R.id.tv_name);
         btnSave = findViewById(R.id.btn_save);
         edtNilai = findViewById(R.id.edt_nilai);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(this);
 
         request = new Request(this);
 
@@ -132,6 +136,8 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
             }else {
                 showSnackbarMessage("Isi nilai-nya bang");
             }
+        } else if (v.getId() == R.id.btn_back) {
+            finish();
         }
     }
 }

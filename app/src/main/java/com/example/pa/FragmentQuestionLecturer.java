@@ -100,4 +100,10 @@ public class FragmentQuestionLecturer extends Fragment implements ListQuestionAd
     public interface onServerCallBack{
         void onSuccessLoad(ArrayList<Problem> problem);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new FragmentQuestionLecturer.LoadProblemAsync().execute();
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,6 +40,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
     protected Button btnCreateSoal;
     protected EditText tglmulai, tglselesai, jammulai, jamselesai,edt_judul_soal;
     protected Request request;
+    private ImageButton btnBack;
     public static String CCLASS = "cclass";
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
         tglselesai = findViewById(R.id.tgl_selesai);
         jamselesai = findViewById(R.id.jam_selesai);
         edt_judul_soal = findViewById(R.id.judul_soal);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(this);
 
         listEditTextJawaban = new ArrayList<EditText>();
         listEditTextPertanyaan = new ArrayList<EditText>();
@@ -166,6 +170,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 
                 LinearLayout lay2 = new LinearLayout(add_question.this);
                 lay2.setOrientation(LinearLayout.HORIZONTAL);
+                lay2.setGravity(Gravity.CENTER);
                 lay2.addView(txt);
                 lay2.addView(lay);
                 lySoal.addView(lay2);
@@ -213,9 +218,12 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 //            Log.d("lal",problem.getEndDate());
 
                 request.addProblem(problem, listProblemNuber);
+                finish();
             }else{
                 showSnackbarMessage("tolong diisi semua fieldnya");
             }
+        } else if (v.getId() == R.id.btn_back) {
+            finish();
         }
     }
 
