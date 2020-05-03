@@ -1,8 +1,13 @@
 package com.example.pa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.FontsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +31,7 @@ import java.util.ArrayList;
 public class StartQuestion extends AppCompatActivity implements Request.ProblemNumberReady,View.OnClickListener, Request.AddProblemCallBack {
     LinearLayout lySoal;
     TextView edtJudul;
+    TextView dedline;
     private Request request;
     Button btnFinish;
     ArrayList<EditText> listEditTextAnswers;
@@ -42,6 +48,7 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
         edtJudul = findViewById(R.id.tv_judul_soal);
         lySoal = findViewById(R.id.ly_soal);
         btnBack = findViewById(R.id.btn_back);
+        dedline = findViewById(R.id.txt_dedline);
         btnBack.setOnClickListener(this);
 
         request = new Request(this);
@@ -50,6 +57,8 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
         problem = getIntent().getParcelableExtra(EXTRA_PROBLEM);
         if(problem.getTitle()!=null){
             edtJudul.setText(problem.getTitle());
+            String ded = "("+problem.getStartDate()+" "+problem.getStartTime()+" sampai "+problem.getEndTime()+" "+problem.getEndDate()+")";
+            dedline.setText(ded);
         }
 //        getSupportActionBar().setTitle(problem.getTitle());
 
@@ -63,20 +72,27 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
     @Override
     public void onSucces(ArrayList<ProblemNumber> list) {
         int item = 1;
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.roboto_condensed_regular);
         for(int i = 0 ;i<list.size();i++){
             Log.d("lololo", list.get(i).getPertanyaan());
             TextView txt = new TextView(StartQuestion.this);
+            txt.setTextColor(Color.BLACK);
             txt.setText(item+". ");
+            txt.setTypeface(typeface);
+            txt.setTextSize(20);
 
             TextView txtSoal = new TextView(StartQuestion.this);
             txtSoal.setWidth(lySoal.getWidth());
             txtSoal.setText(list.get(i).getPertanyaan());
             txtSoal.setId(View.generateViewId());
-            txtSoal.setTextSize(15);
+            txtSoal.setTextColor(Color.BLACK);
+            txtSoal.setTypeface(typeface);
+            txtSoal.setTextSize(20);
 
             EditText edt2 = new EditText(StartQuestion.this);
             edt2.setHint("Jawaban");
             edt2.setWidth(lySoal.getWidth());
+            edt2.setTypeface(typeface);
             edt2.setId(View.generateViewId());
 
             LinearLayout lay = new LinearLayout(StartQuestion.this);

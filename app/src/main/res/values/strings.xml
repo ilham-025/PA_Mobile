@@ -59,4 +59,8 @@
     <string name="class_name">Nama Kelas</string>
     <string name="kode_kelas">Kode Kelas</string>
     <string name="dedline">Dedline:</string>
+    <string name="pengumuman">Pengumuman</string>
+    <string name="daftar_pertanyaan">Daftar Soal</string>
+    <string name="daftar_siswa">Daftar Siswa</string>
+    <string name="tema">Tema</string>
 </resources>

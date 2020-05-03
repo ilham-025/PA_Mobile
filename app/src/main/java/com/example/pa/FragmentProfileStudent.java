@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avatarfirst.avatargenlib.AvatarConstants;
+import com.avatarfirst.avatargenlib.AvatarGenerator;
+import com.bumptech.glide.Glide;
 import com.example.pa.Model.Auth;
 import com.example.pa.db.UserHelper;
 
@@ -16,10 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentProfileStudent extends Fragment implements View.OnClickListener {
     TextView tvName, tvEmail;
     private Button btnLogout;
     UserHelper userHelper;
+    CircleImageView img;
 
     @Nullable
     @Override
@@ -28,6 +34,7 @@ public class FragmentProfileStudent extends Fragment implements View.OnClickList
         tvName = view.findViewById(R.id.tv_name);
         tvEmail = view.findViewById(R.id.tv_email);
         btnLogout = view.findViewById(R.id.btn_logout);
+        img = view.findViewById(R.id.img_item_photo_student);
         return view;
     }
 
@@ -39,6 +46,10 @@ public class FragmentProfileStudent extends Fragment implements View.OnClickList
         tvName.setText(Auth.user.getNama());
         tvEmail.setText(Auth.user.getEmail());
         btnLogout.setOnClickListener(this);
+        Glide.with(this)
+                .load("http://brokenfortest")
+                .placeholder(AvatarGenerator.Companion.avatarImage(getContext(), 200, AvatarConstants.Companion.getCIRCLE(), Auth.user.getNama()))
+                .into(img);
     }
 
     @Override
