@@ -1,10 +1,14 @@
 package com.example.pa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,7 +63,7 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
         }
         user = getIntent().getParcelableExtra(EXTRA_USER);
         if(user.getNama()!=null){
-            edtName.setText(user.getNama());
+            edtName.setText("Nama Siswa: "+user.getNama());
         }
         request.CheckStudentAnswerNumber(getIntent().getIntExtra(EXTRA_ANSWER_ID,0),getIntent().getIntExtra(EXTRA_PROBLEM_ID,0),this);
         btnSave.setOnClickListener(this);
@@ -69,34 +73,43 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
     @Override
     public void onSuccess(ArrayList<ProblemNumber> problemNumbers, ArrayList<AnswerNumber> answerNumbers) {
         int item = 1;
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.roboto_condensed_regular);
         for(int i = 0 ;i<problemNumbers.size();i++){
 //            Log.d("lololo", list.get(i).getPertanyaan());
             TextView txt = new TextView(this);
+            txt.setTypeface(typeface);
+            txt.setTextColor(Color.BLACK);
             txt.setText(item+". ");
+            txt.setTextSize(20);
 
             TextView txtSoal = new TextView(this);
             txtSoal.setWidth(lyJawaban.getWidth());
             txtSoal.setText(problemNumbers.get(i).getPertanyaan());
             txtSoal.setId(View.generateViewId());
+            txtSoal.setTypeface(typeface);
+            txtSoal.setTextColor(Color.BLACK);
             txtSoal.setTextSize(20);
 
             TextView txtJawabanAsli = new TextView(this);
             txtJawabanAsli.setWidth(lyJawaban.getWidth());
-            txtJawabanAsli.setText(problemNumbers.get(i).getJawaban());
+            txtJawabanAsli.setText("(Jawaban Benar: "+problemNumbers.get(i).getJawaban()+")");
             txtJawabanAsli.setId(View.generateViewId());
-            txtJawabanAsli.setTextSize(20);
+            txtJawabanAsli.setGravity(Gravity.RIGHT);
+            txtJawabanAsli.setTypeface(typeface);
 
             TextView txtJawabanMurid = new TextView(this);
             txtJawabanMurid.setWidth(lyJawaban.getWidth());
-            txtJawabanMurid.setText(answerNumbers.get(i).getText());
+            txtJawabanMurid.setText("Jawaban: "+answerNumbers.get(i).getText());
             txtJawabanMurid.setId(View.generateViewId());
-            txtJawabanMurid.setTextSize(20);
+            txtJawabanMurid.setTypeface(typeface);
+            txtJawabanMurid.setTextColor(Color.BLACK);
+            txtJawabanMurid.setTextSize(18);
 
             LinearLayout lay = new LinearLayout(this);
             lay.setOrientation(LinearLayout.VERTICAL);
             lay.addView(txtSoal);
-            lay.addView(txtJawabanAsli);
             lay.addView(txtJawabanMurid);
+            lay.addView(txtJawabanAsli);
 
             LinearLayout lay2 = new LinearLayout(this);
             lay2.setOrientation(LinearLayout.HORIZONTAL);

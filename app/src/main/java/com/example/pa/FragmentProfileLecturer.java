@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avatarfirst.avatargenlib.AvatarConstants;
+import com.avatarfirst.avatargenlib.AvatarGenerator;
+import com.bumptech.glide.Glide;
 import com.example.pa.Model.Auth;
 import com.example.pa.db.UserHelper;
 
@@ -16,8 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentProfileLecturer extends Fragment implements View.OnClickListener{
     TextView tvName,tvEmail;
+    CircleImageView img;
     private Button btnLogout;
     UserHelper userHelper;
     @Nullable
@@ -27,6 +33,7 @@ public class FragmentProfileLecturer extends Fragment implements View.OnClickLis
         tvEmail = view.findViewById(R.id.tv_email);
         tvName = view.findViewById(R.id.tv_name);
         btnLogout = view.findViewById(R.id.btn_logout);
+        img = view.findViewById(R.id.img_item_photo_lecturer);
         return view;
     }
 
@@ -45,6 +52,10 @@ public class FragmentProfileLecturer extends Fragment implements View.OnClickLis
 //            public void onClick(View v) {
 //            }
 //        });
+        Glide.with(this)
+                .load("http://brokenfortest")
+                .placeholder(AvatarGenerator.Companion.avatarImage(getContext(), 200, AvatarConstants.Companion.getCIRCLE(), Auth.user.getNama()))
+                .into(img);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.pa;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +30,7 @@ import java.util.Locale;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 public class add_question extends AppCompatActivity implements View.OnClickListener, Request.OnServerPostCallBack {
     protected ArrayList<EditText> listEditTextPertanyaan;
@@ -146,6 +148,7 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 
         btnAddQuestion.setOnClickListener(new View.OnClickListener() {
             int item = 1;
+            Typeface typeface = ResourcesCompat.getFont(add_question.this, R.font.roboto_condensed_regular);
             @Override
             public void onClick(View v) {
                 TextView txt = new TextView(add_question.this);
@@ -153,9 +156,11 @@ public class add_question extends AppCompatActivity implements View.OnClickListe
 
                 EditText edt = new EditText(add_question.this);
                 edt.setWidth(lySoal.getWidth());
+                edt.setTypeface(typeface);
                 edt.setHint("Pertanyaan");
                 edt.setId(View.generateViewId());
                 EditText edt2 = new EditText(add_question.this);
+                edt2.setTypeface(typeface);
                 edt2.setHint("Jawaban");
                 edt2.setWidth(lySoal.getWidth());
                 edt2.setId(View.generateViewId());

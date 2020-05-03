@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import com.avatarfirst.avatargenlib.AvatarConstants;
+import com.avatarfirst.avatargenlib.AvatarGenerator;
+import com.bumptech.glide.Glide;
 import com.example.pa.Adapter.ListAnnouncementAdapter;
 import com.example.pa.Model.Announcement;
 import com.example.pa.Model.Auth;
@@ -30,6 +33,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentHomeLecturer extends Fragment implements View.OnClickListener {
     private Request request;
     private RecyclerView rvAnnouncement;
@@ -39,6 +44,7 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
     private ProgressBar progressBar;
     private ImageButton btnAddAnnouncement;
     private EditText edtAnnouncemnet;
+    private CircleImageView img;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
         rvAnnouncement.setLayoutManager(new LinearLayoutManager(this.getContext()));
         btnAddAnnouncement = view.findViewById(R.id.btn_add_announcement);
         edtAnnouncemnet = view.findViewById(R.id.edt_announcement);
+        img = view.findViewById(R.id.img_item_photo_home);
         return view;
     }
 
@@ -61,6 +68,10 @@ public class FragmentHomeLecturer extends Fragment implements View.OnClickListen
         listAnnouncementAdapter.setListAnnouncement(list);
         rvAnnouncement.setAdapter(listAnnouncementAdapter);
         new LoadAnnouncementAsync().execute();
+        Glide.with(this)
+                .load("http://brokenfortest")
+                .placeholder(AvatarGenerator.Companion.avatarImage(getContext(), 200, AvatarConstants.Companion.getCIRCLE(), Auth.user.getNama()))
+                .into(img);
     }
 
     @Override
