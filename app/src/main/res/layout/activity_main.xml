@@ -67,7 +67,9 @@
             android:textColor="#016316"
             android:textColorHint="#80016316"
             android:textSize="14sp"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no">
+            <requestFocus/>
+        </EditText>
 
         <EditText
             android:id="@+id/password"

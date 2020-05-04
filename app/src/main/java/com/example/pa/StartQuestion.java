@@ -92,6 +92,7 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
             edt2.setHint("Jawaban");
             edt2.setWidth(lySoal.getWidth());
             edt2.setTypeface(typeface);
+            edt2.requestFocus();
             edt2.setId(View.generateViewId());
 
             LinearLayout lay = new LinearLayout(StartQuestion.this);
