@@ -28,7 +28,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class StartQuestion extends AppCompatActivity implements Request.ProblemNumberReady,View.OnClickListener, Request.AddProblemCallBack {
+public class StartQuestion extends AppCompatActivity implements Request.ProblemNumberReady,View.OnClickListener, Request.AddProblemCallBack, Request.ShowAnswerNumberCallBack {
     LinearLayout lySoal;
     TextView edtJudul;
     TextView dedline;
@@ -60,7 +60,6 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
             String ded = "("+problem.getStartDate()+" "+problem.getStartTime()+" sampai "+problem.getEndTime()+" "+problem.getEndDate()+")";
             dedline.setText(ded);
         }
-//        getSupportActionBar().setTitle(problem.getTitle());
 
         listEditTextAnswers = new ArrayList<EditText>();
 
@@ -108,6 +107,10 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
             listEditTextAnswers.add(edt2);
             item++;
         }
+        Answer answer = new Answer();
+        answer.setProblem_id(getIntent().getIntExtra(EXTRA_PROBLEM_ID, 0));
+        answer.setUser_id(Auth.user.getId());
+        request.showAnswerNumber(answer,this);
     }
 
     @Override
@@ -137,6 +140,18 @@ public class StartQuestion extends AppCompatActivity implements Request.ProblemN
 
     @Override
     public void error(String Message) {
+
+    }
+
+    @Override
+    public void onSuccessShow(ArrayList<AnswerNumber> answerNumbers) {
+        for(int i=0; i<answerNumbers.size();i++){
+            listEditTextAnswers.get(i).setText(answerNumbers.get(i).getText());
+        }
+    }
+
+    @Override
+    public void onErrorShow() {
 
     }
 }

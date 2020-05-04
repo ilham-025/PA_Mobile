@@ -815,6 +815,49 @@ public class Request {
         requestSingelton.getRequestQueue().add(jsonObjectRequest);
     }
 
+    public void showAnswerNumber(Answer answer, final ShowAnswerNumberCallBack showAnswerNumberCallBack){
+        String url = "http://" + getIp() + "/elearning/public/api/answer/show?problem_id="+answer.getProblem_id()+"&user_id="+answer.getUser_id();
+        JsonObjectRequest showAnswerNumberRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray data = response.getJSONArray("data");
+                    ArrayList<AnswerNumber> answerNumbers = new ArrayList<>();
+                    for(int i=0;i<data.length();i++){
+                        AnswerNumber answerNumber = new AnswerNumber();
+                        JSONObject answerNumberJSONObject = data.getJSONObject(i);
+                        answerNumber.setId(answerNumberJSONObject.getInt("id"));
+                        answerNumber.setText(answerNumberJSONObject.getString("text"));
+                        answerNumber.setAnswer_id(answerNumberJSONObject.getInt("answer_id"));
+                        answerNumbers.add(answerNumber);
+                    }
+                    showAnswerNumberCallBack.onSuccessShow(answerNumbers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + Auth.apiToken);
+                return params;
+            }
+        };
+        requestSingelton.getRequestQueue().add(showAnswerNumberRequest);
+    }
+
+    public interface ShowAnswerNumberCallBack{
+        public void onSuccessShow(ArrayList<AnswerNumber> answerNumbers);
+        public void onErrorShow();
+    }
+
     public interface AddAnnouncementCallBack{
         public void onSuccessAdd();
         public void onErrorAdd();

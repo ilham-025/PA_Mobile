@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.example.pa.Model.Auth;
 import com.example.pa.Request.Request;
@@ -20,13 +22,15 @@ import org.json.JSONException;
 public class MainActivity extends AppCompatActivity implements Request.OnServerPostCallBack,View.OnClickListener{
 
     private EditText edtEmail,edtPassword;
-    private Button btnLogin;
+    private Button btn;
+    private FrameLayout layoutLoading;
     private UserHelper userHelper;;
     Request request;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        layoutLoading = findViewById(R.id.loading_layout);
         edtEmail = findViewById(R.id.email);
         edtPassword = findViewById(R.id.password);
         request = new Request(this);
@@ -47,13 +51,14 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
             startActivity(move);
             finish();
         }
-        Button btn;
         btn = findViewById(R.id.login);
         btn.setOnClickListener(this);
     }
 
     @Override
     public void onSuccess(String message) {
+        layoutLoading.setVisibility(View.GONE);
+        btn.setVisibility(View.VISIBLE);
         userHelper.open();
         Intent move;
         if(message.equals("success")){
@@ -74,12 +79,16 @@ public class MainActivity extends AppCompatActivity implements Request.OnServerP
 
     @Override
     public void onError() {
+        btn.setVisibility(View.VISIBLE);
+        layoutLoading.setVisibility(View.GONE);
         showSnackbarMessage("Please check YOur internet");
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
+            btn.setVisibility(View.GONE);
+            layoutLoading.setVisibility(View.VISIBLE);
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
             try {
