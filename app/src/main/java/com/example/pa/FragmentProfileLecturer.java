@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentProfileLecturer extends Fragment implements View.OnClickListener{
@@ -54,7 +56,7 @@ public class FragmentProfileLecturer extends Fragment implements View.OnClickLis
 //        });
         Glide.with(this)
                 .load("http://brokenfortest")
-                .placeholder(AvatarGenerator.Companion.avatarImage(getContext(), 200, AvatarConstants.Companion.getCIRCLE(), Auth.user.getNama()))
+                .placeholder(AvatarGenerator.Companion.avatarImage(Objects.requireNonNull(getContext()), 200, AvatarConstants.Companion.getCIRCLE(), Auth.user.getNama()))
                 .into(img);
     }
 
@@ -71,6 +73,6 @@ public class FragmentProfileLecturer extends Fragment implements View.OnClickLis
         Intent move = new Intent(this.getActivity(),MainActivity.class);
         move.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(move);
-        getActivity().finish();
+        Objects.requireNonNull(getActivity()).finish();
     }
 }

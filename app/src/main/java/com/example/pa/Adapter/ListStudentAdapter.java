@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.avatarfirst.avatargenlib.AvatarConstants;
+import com.avatarfirst.avatargenlib.AvatarGenerator;
+import com.bumptech.glide.Glide;
 import com.example.pa.Model.User;
 import com.example.pa.R;
 
@@ -12,6 +15,8 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.UserViewHolder> {
     private ArrayList<User> users;
@@ -32,6 +37,10 @@ public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.
         User user = users.get(position);
         holder.tvNama.setText(user.getNama());
         holder.tvEmaill.setText(user.getEmail());
+        Glide.with(holder.itemView.getContext())
+                .load("http://brokenfortest")
+                .placeholder(AvatarGenerator.Companion.avatarImage(holder.itemView.getContext(), 200, AvatarConstants.Companion.getCIRCLE(), user.getNama()))
+                .into(holder.img);
     }
 
     @Override
@@ -44,10 +53,12 @@ public class ListStudentAdapter extends RecyclerView.Adapter<ListStudentAdapter.
     }
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvNama,tvEmaill;
+        CircleImageView img;
         public UserViewHolder(@NonNull View itemView, OnStudentListListener onStudentListListener) {
             super(itemView);
             tvNama = itemView.findViewById(R.id.tv_name_student);
             tvEmaill = itemView.findViewById(R.id.tv_email_student);
+            img = itemView.findViewById(R.id.img_item_photo_student);
             itemView.setOnClickListener(this);
         }
 

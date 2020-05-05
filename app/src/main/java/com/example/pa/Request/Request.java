@@ -853,8 +853,53 @@ public class Request {
         requestSingelton.getRequestQueue().add(showAnswerNumberRequest);
     }
 
+    public void showNilai(int problem_id, int user_id, final ShowNilaiCallBack showNilaiCallBack){
+        String url = "http://" + getIp() + "/elearning/public/api/answer/show-nilai?problem_id="+problem_id+"&user_id="+user_id;
+        JsonObjectRequest showAnswerNumberRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray data = response.getJSONArray("data");
+                    ArrayList<Answer> answers = new ArrayList<>();
+                    for(int i=0;i<data.length();i++) {
+                        Answer answer1 = new Answer();
+                        JSONObject dataJSONObject = data.getJSONObject(i);
+                        answer1.setId(dataJSONObject.getInt("id"));
+                        answer1.setUser_id(dataJSONObject.getInt("user_id"));
+                        answer1.setProblem_id(dataJSONObject.getInt("problem_id"));
+                        answer1.setNilai(dataJSONObject.getInt("nilai"));
+                        Log.d("ini nilai", String.valueOf(answer1.getNilai()));
+                        answers.add(answer1);
+                    }
+                    showNilaiCallBack.onSuccessShow(answers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + Auth.apiToken);
+                return params;
+            }
+        };
+        requestSingelton.getRequestQueue().add(showAnswerNumberRequest);
+    }
+
     public interface ShowAnswerNumberCallBack{
         public void onSuccessShow(ArrayList<AnswerNumber> answerNumbers);
+        public void onErrorShow();
+    }
+
+    public interface ShowNilaiCallBack{
+        public void onSuccessShow(ArrayList<Answer> answer);
         public void onErrorShow();
     }
 

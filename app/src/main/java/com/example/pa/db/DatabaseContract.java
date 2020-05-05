@@ -1,6 +1,5 @@
 package com.example.pa.db;
 
-import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class DatabaseContract

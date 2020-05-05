@@ -36,7 +36,8 @@ public class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Problem problem = problems.get(position);
         holder.judul.setText(problem.getTitle());
-        holder.tempo.setText(problem.getStartTime()+" "+problem.getStartDate()+" Sampai "+problem.getEndTime()+" "+problem.getEndDate());
+        String tempo = problem.getStartTime()+" "+problem.getStartDate()+" Sampai "+problem.getEndTime()+" "+problem.getEndDate();
+        holder.tempo.setText(tempo);
     }
 
     @Override

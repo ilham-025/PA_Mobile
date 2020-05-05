@@ -36,7 +36,8 @@ public class ListFindClassAdapter extends RecyclerView.Adapter<ListFindClassAdap
     public void onBindViewHolder(@NonNull CClasViewHolder holder, int position) {
         holder.name.setText(listCClass.get(position).getName());
         holder.description.setText(listCClass.get(position).getDescription());
-        holder.classCode.setText("(Kode Kelas : "+listCClass.get(position).getCode()+")");
+        String classCode = "(Kode Kelas : "+listCClass.get(position).getCode()+")";
+        holder.classCode.setText(classCode);
     }
 
     @Override

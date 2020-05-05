@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.pa.Model.Answer;
 import com.example.pa.Model.AnswerNumber;
 import com.example.pa.Model.Problem;
 import com.example.pa.Model.ProblemNumber;
@@ -25,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class PeriksaSoal extends AppCompatActivity implements Request.CheckProblemCallBack, Request.NilaiCallBack, View.OnClickListener {
+public class PeriksaSoal extends AppCompatActivity implements Request.CheckProblemCallBack, Request.NilaiCallBack, View.OnClickListener, Request.ShowNilaiCallBack {
     LinearLayout lyJawaban;
     TextView edtJudul, edtName;
     private Request request;
@@ -118,6 +119,9 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
             lyJawaban.addView(lay2);
             item++;
         }
+        Log.d("id problem",String.valueOf(getIntent().getIntExtra(EXTRA_PROBLEM_ID,0)));
+        Log.d("id_user", String.valueOf(user.getId()));
+        request.showNilai(1,101, this);
     }
 
     @Override
@@ -152,5 +156,17 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
         } else if (v.getId() == R.id.btn_back) {
             finish();
         }
+    }
+
+    @Override
+    public void onSuccessShow(ArrayList<Answer> answer) {
+        for (int i = 0;i<answer.size(); i++ ) {
+            edtNilai.setText(answer.get(i).getNilai());
+        }
+    }
+
+    @Override
+    public void onErrorShow() {
+
     }
 }
