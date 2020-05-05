@@ -76,7 +76,6 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
         int item = 1;
         Typeface typeface = ResourcesCompat.getFont(this, R.font.roboto_condensed_regular);
         for(int i = 0 ;i<problemNumbers.size();i++){
-//            Log.d("lololo", list.get(i).getPertanyaan());
             TextView txt = new TextView(this);
             txt.setTypeface(typeface);
             txt.setTextColor(Color.BLACK);
@@ -121,7 +120,7 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
         }
         Log.d("id problem",String.valueOf(getIntent().getIntExtra(EXTRA_PROBLEM_ID,0)));
         Log.d("id_user", String.valueOf(user.getId()));
-        request.showNilai(1,101, this);
+        request.showNilai(getIntent().getIntExtra(EXTRA_PROBLEM_ID,0),101, this);
     }
 
     @Override
@@ -161,7 +160,8 @@ public class PeriksaSoal extends AppCompatActivity implements Request.CheckProbl
     @Override
     public void onSuccessShow(ArrayList<Answer> answer) {
         for (int i = 0;i<answer.size(); i++ ) {
-            edtNilai.setText(answer.get(i).getNilai());
+            Log.d("nilai",String.valueOf(answer.get(i).getNilai()));
+            edtNilai.setText(String.valueOf(answer.get(i).getNilai()));
         }
     }
 
